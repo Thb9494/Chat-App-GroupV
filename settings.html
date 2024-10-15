@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile Settings</title>
+    <meta charset="utf-8">
+    <meta http-equiv="expires" content="01 Dec 2040 00:00:00 GMT">
+    <meta name="keywords" content="Profile, Settings, Profile Settings">
+</head>
+<body>
+    <h2>Profile Settings</h2>
+    <fieldset>
+        <legend for="basedata">Base Data</legend>
+        <label for="firstname">First Name</label>
+        <input type="text" name="firstnameformular" placeholder="Your name"><br>
+        <label for="lastname">Last Name</label>
+        <input type="text" name="lastnameformular" placeholder="Your surname"><br>
+        <label for="coffeeortea">Coffee or Tea?</label>
+        <select>
+            <option value="coffee">Coffee</option>
+            <option value="tea">Tea</option>
+            <option value="Neither nor">Neither nor</option>
+        </select>
+    </fieldset>
+
+    <fieldset>
+        <legend>Tell Something About You</legend>
+        <textarea name="comment" rows="2" cols="30" placeholder="Leave a comment here"></textarea>
+    </fieldset>
+
+    <fieldset>
+        <legend>Prefered Chat Layout</legend>
+        <br>
+        <input type="radio" name="oneline">Username and Message in one line<br>
+        <br>
+        <input type="radio" name="seperatelines">Username and Message in seperate lines<br>
+        <br>
+    </fieldset>
+    <input type="submit" value="Cancel">
+    <input type="submit" value="Save">
+</body>
+</html>
