@@ -11,9 +11,9 @@
     <fieldset>
         <legend for="basedata">Base Data</legend>
         <label for="firstname">First Name</label>
-        <input type="text" name="firstnameformular" placeholder="Your name"><br>
+        <input id="firstname" type="text" name="firstnameformular" placeholder="Your name"><br>
         <label for="lastname">Last Name</label>
-        <input type="text" name="lastnameformular" placeholder="Your surname"><br>
+        <input id="lastname" type="text" name="lastnameformular" placeholder="Your surname"><br>
         <label for="coffeeortea">Coffee or Tea?</label>
         <select>
             <option value="coffee" name="coffee">Coffee</option>
@@ -30,12 +30,12 @@
     <fieldset>
         <legend for="chatlayout">Prefered Chat Layout</legend>
         <br>
-        <input type="radio" name="oneline">Username and Message in one line<br>
+        <input type="radio" name="chatlayout">Username and Message in one line<br>
         <br>
-        <input type="radio" name="seperatelines">Username and Message in seperate lines<br>
+        <input type="radio" name="chatlayout">Username and Message in seperate lines<br>
         <br>
     </fieldset>
-    <input type="submit" value="Cancel" name="cancel">
+    <input type="reset" value="Cancel" name="cancel">
     <input type="submit" value="Save" name="save">
 </body>
 </html>
