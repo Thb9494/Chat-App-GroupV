@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatApp Gruppe V Login</title>
 </head>
+
 <body>
     <img src="images/chat.png" alt="ChatApp Logo" width="100" height="100">
     <h1>Pleas log in</h1>
-<fieldset>
-    <legend>Login</legend>
-    <label for="Username"> Username</label>
-    <input type="text" name="Username" id="Username" placeholder="Username">
-    <br>
-    <label for="Password"> Password</label>
-    <input type="password" name="Password" id="Password" placeholder="Password">
-</fieldset>
 
-<button>Register</button>
-<button>Login</button>
+
+    <form action="friendlist.html" method="get">
+        <fieldset>
+            <legend>Login</legend>
+            <input type="text" name="username" id="username" placeholder="Username">
+            <input type="password" name="password" id="password" placeholder="Password">
+        </fieldset>
+        <a href="register.html"> <input type="button" value="Register"></a>
+        <input type="submit" value="Login">
+    </form>
 </body>
+
 </html>
