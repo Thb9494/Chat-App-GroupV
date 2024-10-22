@@ -15,3 +15,6 @@ Aufgabe 1:
 Aufgabe 2:
 layout.css: Tomke
 text.css: Theresa
+link.css: Theresa
+
+CAVE: bitte den link "remove friend" der Klasse .danger-links zugehörig machen
