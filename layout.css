@@ -31,3 +31,16 @@ img {
     width : 100px;
     border-radius: 80%;
 }
+div.loginLabels{
+    text-align: right;
+    display: inline-block;
+    box-sizing: border-box;
+    padding-right: 20px;
+}
+
+div.loginInputs{
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #999;
+    padding: 5px 10px;
+}
