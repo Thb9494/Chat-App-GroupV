@@ -4,10 +4,17 @@ Aufgabe 1:
  3.	Team-Mitglied:	Nutzerprofil-Einstellungen	und	-Ansicht - Tomke
 
     Datei-Namen:
-   	- login.html
+    - login.html
     - logout.html
     - register.html
     - friendlist.html
     - profile.html
     - settings.html
     - chat.html
+
+Aufgabe 2:
+layout.css: Tomke
+text.css: Theresa
+link.css: Theresa
+
+CAVE: bitte den link "remove friend" der Klasse .danger-links zugehörig machen
