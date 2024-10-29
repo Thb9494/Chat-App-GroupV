@@ -1,0 +1,27 @@
+body{
+    max-width: 900px;
+    display: grid;
+}
+
+div.profileHeadline{
+    justify-self: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+div.profileLinks{
+    margin-bottom: 20px;
+}
+div.profilePicture{
+    margin-right: 20px;
+}
+div.profilePicture img{
+    width: 250px;
+    height: 250px;
+}
+div.profileTextAndPicture{
+   display: flex;
+}
+div.profileText{
+    margin-left: 10px;
+    border: 1px black;
+}
