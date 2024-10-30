@@ -1,6 +1,6 @@
 body{
     max-width: 100%;
-    display: grid;   
+    display: grid;  
 }
 
 div.profileHeadline{
@@ -26,6 +26,7 @@ div.profileText{
     border: 1px black;
 }
 
+/* login */
 img {
     height: 100px;
     width : 100px;
@@ -81,3 +82,77 @@ img {
     width: 5%;
     height: 30px;
 }
+
+/* settings */
+
+.settingsContainer h2{
+    text-align: left;
+    margin-left: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.settingsContainer{
+    text-align: center;
+    align-items: center;
+}
+
+.basedataFieldset{
+    display: inline-block; 
+    width: 98%;
+}
+
+.tellsomethingFieldset{
+    display: inline-block;
+    width: 98%;
+
+}
+
+.chatlayoutFieldset{
+    display: inline-block;
+    width: 98%;
+
+}
+
+.tellsomethingFieldset legend, .chatlayoutFieldset legend, .basedataFieldset legend{
+    text-align: left;
+    padding: 0 0px;
+}
+
+.basedataFieldset label{
+    width: 18%;
+    text-align: right;
+    display: inline-block;
+    box-sizing: border-box;
+    padding-right: 5px;
+}
+
+.basedataFieldset input, .basedataFieldset select{
+    width: 18%;
+    box-sizing: border-box;
+    font-size: 1em;
+    margin-bottom: 10px;
+    border: 1px solid #999;
+}
+
+.tellsomethingFieldset textarea{
+    width: 100%;
+    height: 170px;
+    box-sizing: border-box;
+    font-size: 1em;
+    margin-bottom: 10px;
+    border: 1px solid #999;
+}
+
+.chatlayoutFieldset input{
+    width: 5%;
+    
+
+}
+
+.settingsButtons{
+    display: flex;
+    justify-content: center;
+}
+
+

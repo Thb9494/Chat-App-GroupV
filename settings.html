@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="layout.css">
 </head>
 <body>
+    <div class="settingsContainer">
     <h2>Profile Settings</h2>
-    <fieldset>
+    <fieldset class="basedataFieldset">
         <legend for="basedata">Base Data</legend>
         <label for="firstname">First Name</label>
         <input id="firstname" type="text" name="firstnameformular" placeholder="Your name"><br>
@@ -21,18 +22,18 @@
         <input id="lastname" type="text" name="lastnameformular" placeholder="Your surname"><br>
         <label for="coffeeortea">Coffee or Tea?</label>
         <select>
+            <option value="Neither nor" name="neithernor">Neither nor</option>
             <option value="coffee" name="coffee">Coffee</option>
             <option value="tea" name="tea">Tea</option>
-            <option value="Neither nor" name="neithernor">Neither nor</option>
         </select>
     </fieldset>
 
-    <fieldset>
+    <fieldset class="tellsomethingFieldset">
         <legend for="tellsomething">Tell Something About You</legend>
         <textarea name="comment" rows="2" cols="30" placeholder="Leave a comment here"></textarea>
     </fieldset>
 
-    <fieldset>
+    <fieldset class="chatlayoutFieldset">
         <legend for="chatlayout">Prefered Chat Layout</legend>
         <br>
         <input type="radio" name="chatlayout">Username and Message in one line<br>
@@ -40,7 +41,11 @@
         <input type="radio" name="chatlayout">Username and Message in seperate lines<br>
         <br>
     </fieldset>
-    <input type="reset" value="Cancel" name="cancel">
-    <input type="submit" value="Save" name="save">
+    <div class="settingsButtons">
+        <input type="reset" value="Cancel" name="cancel">
+        <input type="submit" value="Save" name="save">
+    </div>
+    
+    </div>
 </body>
 </html>
