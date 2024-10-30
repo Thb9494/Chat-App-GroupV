@@ -1,46 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatApp Gruppe V Freundesliste</title>
+    <title>Friendlist</title>
     <link rel="stylesheet" href="text.css">
     <link rel="stylesheet" href="link.css">
     <link rel="stylesheet" href="formulare.css">
     <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="layout.css">
 </head>
-
 <body>
     <h1>Freundesliste</h1>
-    <a href="logout.html">&lt;Logout </a>
-    <span> | </span>
-    <a href="settings.html"> Settings </a>
 
-    <hr>
+
+<nav>
+    <a href="logout.html">&lt; Logout</a>
+    <span> | </span>
+    <a href="settings.html">Settings</a>
+</nav>
+
+<hr>
+
+<!-- Freundesliste -->
 <div>
-    <ul>
-        <li><a href="chat.html">Tom<span class="message-count">3</span></a></li>
-        <li><a href="chat.html">Marvin<span class="message-count">1</span></a></li>
+    <ul  class="friendList">
+        <li>
+            <a href="chat.html">Tom</a>
+            <span class="message-count">3</span>
+        </li>
+        <li>
+            <a href="chat.html">Marvin</a>
+            <span class="message-count">1</span>
+        </li>
         <li><a href="chat.html">Trick</a></li>
         <li><a href="chat.html">Tick</a></li>
     </ul>
 </div>
-    <hr>
-    <h2>New Request</h2>
-    <ol>
-        <li>Friend request from <b>Track</b>
-            <button>Accept</button>
-            <button>Deny</button>
-        </li>
-    </ol>
-    <hr>
-    <form>
-        <label for="add friend"></label>
-        <input type="text" name="add friend" id="add friend" placeholder="Add Friend to list">
-        <button>Add</button>
-    </form>
-</body>
 
+<hr>
+
+<!-- Freundschaftsanfragen -->
+<h2>New Requests</h2>
+
+<ol>
+    <li class="request-item">
+       1. Request from <b> Track</b>
+        <form action="friend_action.html" method="post">
+            <button type="submit" name="action" value="accept">Accept</button>
+            <button type="submit" name="action" value="deny">Deny</button>
+            <input type="hidden" name="friend" value="Track">
+        </form>
+    </li>
+</ol>
+
+<hr>
+
+<!--add friend-->
+<form action="add_friend.html" method="post" class="add-friend">
+    <input type="text" name="friend_name" id="add-friend" placeholder="Add Friend to List">
+    <button type="submit">Add</button>
+</form>
+
+</body>
 </html>
