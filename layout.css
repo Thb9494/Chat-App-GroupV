@@ -1,5 +1,5 @@
 body{
-    max-width: 900px;
+    max-width: 100%;
     display: grid;   
 }
 
@@ -49,5 +49,14 @@ div.loginLabels{
 
 .loginContainer{
     text-align: center;
+    align-items: center;
+}
 
+.loginFieldset{
+    display: inline-block;
+}
+
+.loginFieldset legend{
+    text-align: left;
+    padding: 0 10px;
 }
