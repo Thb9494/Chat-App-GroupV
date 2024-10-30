@@ -1,5 +1,6 @@
 body{
     max-width: 900px;
+    display: grid;
     
 }
 
@@ -28,11 +29,26 @@ div.profileText{
 
 .usernameLogin label{
     width: 20%;
+}
+
+img {
+    height: 100px;
+    width : 100px;
+    border-radius: 80%;
+}
+
+img {
+    height: 100px;
+    width : 100px;
+    border-radius: 80%;
+}
+div.loginLabels{
+    text-align: right;
     display: inline-block;
     margin-bottom: 5px;
 }
 
 .loginContainer{
     text-align: center;
-    
+
 }
