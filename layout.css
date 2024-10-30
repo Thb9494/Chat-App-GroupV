@@ -1,6 +1,6 @@
 body{
     max-width: 900px;
-    display: grid;
+    
 }
 
 div.profileHeadline{
@@ -26,16 +26,13 @@ div.profileText{
     border: 1px black;
 }
 
-div.loginLabels{
-    text-align: right;
+.usernameLogin label{
+    width: 20%;
     display: inline-block;
-    box-sizing: border-box;
-    padding-right: 20px;
+    margin-bottom: 5px;
 }
 
-div.loginInputs{
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    border: 1px solid #999;
-    padding: 5px 10px;
+.loginContainer{
+    text-align: center;
+    
 }

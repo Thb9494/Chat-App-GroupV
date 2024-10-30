@@ -9,9 +9,11 @@
     <link rel="stylesheet" href="link.css">
     <link rel="stylesheet" href="formulare.css">
     <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="layout.css">
 </head>
 
 <body>
+    <div class="loginContainer">
     <img src="images/chat.png" alt="ChatApp Logo" width="100" height="100">
     <h1>Please log in</h1>
 
@@ -19,11 +21,11 @@
     <form action="friendlist.html" method="get">
         <fieldset>
             <legend>Login</legend>
-            <div class="loginLabels">
+            <div class="usernameLogin">
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" placeholder="Username">
             </div>
-            <div class="loginInputs">
+            <div class="passwordLogin">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" placeholder="Password">
             </div>
@@ -31,6 +33,7 @@
         <a href="register.html"> <input type="button" value="Register"></a>
         <input type="submit" value="Login">
     </form>
+    </div>
 </body>
 
 </html>
