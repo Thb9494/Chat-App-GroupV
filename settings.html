@@ -35,11 +35,15 @@
 
     <fieldset class="chatlayoutFieldset">
         <legend for="chatlayout">Prefered Chat Layout</legend>
-        <br>
-        <input type="radio" name="chatlayout">Username and Message in one line<br>
-        <br>
-        <input type="radio" name="chatlayout">Username and Message in seperate lines<br>
-        <br>
+        <div class="chatlayoutOne">
+            <input type="radio" name="chatlayout">
+            <label>Username and Message in one line</label>
+        </div>
+        <div class="chatlayoutSeperate">
+            <input type="radio" name="chatlayout">
+            <label>Username and Message in seperate lines</label>
+        </div>
+        
     </fieldset>
     <div class="settingsButtons">
         <input type="reset" value="Cancel" name="cancel">

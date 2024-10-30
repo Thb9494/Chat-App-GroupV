@@ -100,18 +100,23 @@ img {
 .basedataFieldset{
     display: inline-block; 
     width: 98%;
+    margin-bottom: 8px;
+    margin-top: 0px;
 }
 
 .tellsomethingFieldset{
     display: inline-block;
     width: 98%;
+    margin-bottom: 8px;
+    margin-top: 0px;
 
 }
 
 .chatlayoutFieldset{
     display: inline-block;
     width: 98%;
-
+    margin-bottom: 8px;
+    margin-top: 0px;
 }
 
 .tellsomethingFieldset legend, .chatlayoutFieldset legend, .basedataFieldset legend{
@@ -145,14 +150,32 @@ img {
 }
 
 .chatlayoutFieldset input{
-    width: 5%;
-    
+    display: block;
+    align-items: center;
+    margin: 0px;
+}
+
+.chatlayoutFieldset label{
+    width: 100%;
+    text-align: left;
+    display: inline-block;
+    box-sizing: border-box;
+    padding-left: 10px;
+    align-items: center;
+}
+
+.chatlayoutOne, .chatlayoutSeperate{
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
 
 }
 
-.settingsButtons{
-    display: flex;
+.settingsButtons input{
     justify-content: center;
+    width: 5%;
+    height: 30px;
 }
 
 
