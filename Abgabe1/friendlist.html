@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Friendlist</title>
+</head>
+<body>
+    <h1>Friends</h1>
+
+
+<nav>
+    <a href="logout.html">&lt; Logout</a>
+    <span> | </span>
+    <a href="settings.html">Settings</a>
+</nav>
+
+<hr>
+
+<!-- Freundesliste -->
+<div>
+    <ul  class="friendList">
+        <li>
+            <a href="./chat.html">Tom (3)</a>
+             
+        </li>
+        <li>
+            <a href="./chat.html">Marvin (1)</a>
+            
+        </li>
+        <li><a href="./chat.html">Trick</a></li>
+        <li><a href="./chat.html">Tick</a></li>
+    </ul>
+</div>
+
+<hr>
+
+<!-- Freundschaftsanfragen -->
+ 
+<div>
+    <h2>New Requests</h2>
+
+    <ol>
+        <li>Friend request from <b>Track</b>
+            <a href="unknownyet.txt"><button>Accept</button></a>
+            <a href="unknownyet.txt"><button>Reject</button></a>
+        </li>
+    </ol>
+</div>
+
+<hr>
+
+<!--add friend-->
+<form action="add_friend.html" method="post" class="add-friend">
+    <input type="text" name="friend_name" id="add-friend" placeholder="Add Friend to List">
+    <button type="submit">Add</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile Settings</title>
+    <meta charset="utf-8">
+    <meta http-equiv="expires" content="01 Dec 2040 00:00:00 GMT">
+    <meta name="keywords" content="Profile, Settings, Profile Settings">
+   
+</head>
+<body>
+    <div class="settingsContainer">
+    <h2>Profile Settings</h2>
+    <fieldset class="basedataFieldset">
+        <legend for="basedata">Base Data</legend>
+        <label for="firstname">First Name</label>
+        <input id="firstname" type="text" name="firstnameformular" placeholder="Your name"><br>
+        <label for="lastname">Last Name</label>
+        <input id="lastname" type="text" name="lastnameformular" placeholder="Your surname"><br>
+        <label for="coffeeortea">Coffee or Tea?</label>
+        <select>
+            <option value="Neither nor" name="neithernor">Neither nor</option>
+            <option value="coffee" name="coffee">Coffee</option>
+            <option value="tea" name="tea">Tea</option>
+        </select>
+    </fieldset>
+
+    <fieldset class="tellsomethingFieldset">
+        <legend for="tellsomething">Tell Something About You</legend>
+        <textarea name="comment" rows="2" cols="30" placeholder="Leave a comment here"></textarea>
+    </fieldset>
+
+    <fieldset class="chatlayoutFieldset">
+        <legend for="chatlayout">Prefered Chat Layout</legend>
+        <div class="chatlayoutOne">
+            <input type="radio" name="chatlayout">
+            <label>Username and Message in one line</label>
+        </div>
+        <div class="chatlayoutSeperate">
+            <input type="radio" name="chatlayout">
+            <label>Username and Message in seperate lines</label>
+        </div>
+        
+    </fieldset>
+    <form action="./settings.html"></form>
+    <div>
+        <a href="./friendlist.html"><button type="button">Cancel</button> </a>
+        <button type="submit">Save</button>
+    </div>
+    
+    </div>
+</body>
+</html>
