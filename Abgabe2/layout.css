@@ -74,12 +74,15 @@ img {
 }
 
 .loginButtons input{
-    width: 4%;
+    width: 5%;
     height: 30px;
+    text-align: center;
 }
 
 .loginButtons a input{
-    width: 5%;
+    width: 6%;
+    text-align: center;
+    justify-content: center;
     height: 30px;
 }
 
