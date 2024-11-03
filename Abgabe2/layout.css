@@ -75,15 +75,20 @@ img {
 
 .loginButtons input{
     width: 5%;
-    height: 40px;
+    height: 35px;
     text-align: center;
+    margin: 5px 0px 0px 0px;
 }
 
 .loginButtons a input{
     width: 6%;
     text-align: center;
     justify-content: center;
-    height: 40px;
+    height: 35px;
+}
+
+.loginButtons .registerButton{
+    margin: 0px 0px 0px 7px;
 }
 
 /* settings */
@@ -199,4 +204,36 @@ img {
 
 }
 
+/* logout */
+.loginAgain{
+margin: 0px;
+}
 
+/* friends */
+.logoutSettings{
+    margin: 15px 0px 0px 0px;
+}
+
+.roundButton{
+    border-radius: 2.5px;
+}
+
+.add-friend{
+    margin: 3px 0px 1px 0px;
+}
+
+.friendList{
+    padding: 0px 0px 0px 15px;
+}
+
+.tom {
+    padding: 20px 0px 10px 0px;
+}
+
+.tick{
+    padding: 10px 0px 20px 0px;
+}
+
+.friendlistContainer{
+    margin: 5px 0px 5px 0px;
+}
