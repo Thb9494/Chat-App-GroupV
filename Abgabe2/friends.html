@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Friend list</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h1 class="h1left">Friends</h1>
+    <div class="navbar">
+      <!-- &lt is the sign for the "<" -> span changes the inline styling without 
+            changing the representation of the, in this case, link
+            &gt stands for ">" -->
+
+      <a href="logout.html"> <span>&lt; Logout</span></a> |
+
+      <!-- The pipe character is seprating the two links -->
+
+      <a href="settings.html"> Settings</a>
+    </div>
+
+    <!-- hr is rendering a seperator line -->
+
+    <hr />
+
+    <div class="chatfield">
+      <ul>
+        <li>
+          <a href="chat.html"> Tom </a><div>3</div>
+        </li>
+        <li>
+          <a href="chat.html"> Marvin </a><div>1</div>
+        </li>
+        <li>
+          <a href="chat.html"> Tick</a>
+        </li>
+        <li>
+          <a href="chat.html"> Trick</a>
+        </li>
+      </ul>
+    </div>
+    <hr>
+    <div>
+        <h2 class="h2left">New Requests</h2>
+
+        <ol>
+            <li>Friend request from <b>Track</b>
+                <a href="unknownyet.txt"><button class="regular-button">Accept</button></a>
+                <a href="unknownyet.txt"><button class="regular-button">Reject</button></a>
+            </li>
+        </ol>
+    </div>
+
+    <hr>
+    <form action="./friends.html">
+    <div class="responsive-input">
+      <input class="chatinput" placeholder="Add Friend to List" />
+      <button type="submit" class="send-add-button">Add</button>
+    </div>
+</form>
+  </body>
+</html>

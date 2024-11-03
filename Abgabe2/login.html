@@ -1,41 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+
+</html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="text.css">
-    <link rel="stylesheet" href="link.css">
-    <link rel="stylesheet" href="formulare.css">
-    <link rel="stylesheet" href="responsive.css">
-    <link rel="stylesheet" href="layout.css">
-</head> 
+  <!-- Adding a title to the web page -->
+  <title>Please Sign in</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
 
 <body>
-    <div class="loginContainer">
-    <img src="../images/chat.png" alt="ChatApp Logo">
-    <h1>Please sign in</h1>
-
-
-    <form action="friendlist.html" method="get">
-        <fieldset class="loginFieldset">
-            <legend>Login</legend>
-            <div class="usernameLogin">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" placeholder="Username">
-            </div>
-            <div class="passwordLogin">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" placeholder="Password">
-            </div>
-        </fieldset>
-        <div class="loginButtons">
-        <a href="register.html"> <input class="registerButton" type="button" value="Register"></a>
-        <input type="submit" value="Login">
+  <img class="roundimg" src="../images/chat.png" width="100" height="100" />
+  <h1>Please sign in</h1>
+  <form action="./friends.html">
+    <fieldset>
+      <legend class="top-descriptor">Login</legend>
+      <br />
+      <div>
+        <div>
+          <label class="input-descriptor">Username</label>
+          <input placeholder="Username" />
         </div>
-    </form>
-    </div>
+        <div>
+          <label class="input-descriptor">Password</label>
+          <input placeholder="Password" />
+        </div>
+      </div>
+      </div>
+    </fieldset>
+    <a href="./register.html"><button class="regular-button" type="button">Register</button></a>
+    <button class="primary-action-button" type="submit" value="Login">Login</button>
+  </form>
 </body>
 
 </html>
