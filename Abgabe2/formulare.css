@@ -31,7 +31,7 @@ ul {
 ul li {
     list-style-type: none;     
     color: black;               
-    padding: 10px 0px 5px 0;                 
+    padding: 10px 0px 10px 0;                 
     width: 100%;               
          
 }
@@ -41,7 +41,7 @@ ul li {
     background-color: #027bff;
     color: white;
     padding: 0px 5px; 
-    margin: 0 5px;
+    margin: 0 15px;
     float: right;
     
 }
@@ -76,7 +76,7 @@ img.profile-picture {
 
 div.profileText {
     background-color: white;
-    border: #030303;
+    border: 1px solid lightgray;
     padding: 10px;
 }
 
@@ -108,12 +108,12 @@ hr {
     flex-grow: 1;               /*Eingabefeld nutzt verfügbaren Platz */
     margin-right: 30px;        
     padding: 10px;             
-    border: 1px solid #030303;  
+    border: 1px solid #989797;  
 }
 
 .add-friend button {
     padding: 10px 50px;        
-    background-color: 989797;    
+    background-color: #989797;    
     color: white;               
     border: none;              
     cursor: pointer;            

@@ -23,9 +23,9 @@
 <hr>
 
 <!-- Freundesliste -->
-<div>
+<div class="friendlistContainer">
     <ul  class="friendList">
-        <li>
+        <li class="tom">
             <a href="chat.html">Tom</a>
             <span class="message-count">3</span>
         </li>
@@ -34,7 +34,7 @@
             <span class="message-count">1</span>
         </li>
         <li><a href="chat.html">Trick</a></li>
-        <li><a href="chat.html">Tick</a></li>
+        <li class="tick"><a href="chat.html">Tick</a></li>
     </ul>
 </div>
 
@@ -46,18 +46,18 @@
 <ol>
     <li>Request from <b> Track</b></li>
         <form action="friend_action.html" method="post">
-            <button type="submit" name="action" value="accept">Accept</button>
-            <button type="submit" name="action" value="deny">Deny</button>
+            <button class="roundButton" type="submit" name="action" value="accept">Accept</button>
+            <button class="roundButton" type="submit" name="action" value="deny">Reject</button>
             <input type="hidden" name="friend" value="Track">
         </form>
 </ol>
 
-<hr>
+<hr class="add-friend">
 
 <!--add friend-->
 <form action="add_friend.html" method="post" class="add-friend">
     <input type="text" name="friend_name" id="add-friend" placeholder="Add Friend to List">
-    <button type="submit">Add</button>
+    <button class="roundButton" type="submit">Add</button>
 </form>
 
 </body>

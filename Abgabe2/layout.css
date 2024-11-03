@@ -214,3 +214,26 @@ margin: 0px;
     margin: 15px 0px 0px 0px;
 }
 
+.roundButton{
+    border-radius: 2.5px;
+}
+
+.add-friend{
+    margin: 3px 0px 1px 0px;
+}
+
+.friendList{
+    padding: 0px 0px 0px 15px;
+}
+
+.tom {
+    padding: 20px 0px 10px 0px;
+}
+
+.tick{
+    padding: 10px 0px 20px 0px;
+}
+
+.friendlistContainer{
+    margin: 5px 0px 5px 0px;
+}
