@@ -74,13 +74,10 @@ a {
     background-color: grey; 
     border: none;
     color: white;
-    padding: 5px 50px;
     text-align: center;
     font-size: 16px;
-    margin: 5px;
-    margin-right: 0px;
     border-radius: 4px;
-    margin-top: 0px;
+    padding: 10px 30px;
   }
 
 .send-add-button:hover {background-color: rgb(70, 69, 69)}
@@ -200,6 +197,7 @@ html {
     width: 80%;
     float: left;
     padding: 5px 5px;
+    height: 24px;
 }
 .chatbutton {
     float: right;
