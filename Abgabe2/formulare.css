@@ -22,7 +22,10 @@ fieldset {
 
 ul {
     border: 1px solid;
+    border-color: lightgray;
+    border-radius: 4px;
     background-color: white;
+    margin: 0px;
 }
 
 ul li {
@@ -35,7 +38,7 @@ ul li {
 
 
 .message-count {
-    background-color: blue;
+    background-color: #027bff;
     color: white;
     padding: 0px 5px; 
     margin: 0 5px;
@@ -90,7 +93,7 @@ span.fat {
 hr {
     border: 0;                 
     border-top: 1px dotted #030303; 
-    margin: 20px 0;           
+    margin: 10px 0;           
 }
 
 .add-friend {
@@ -126,5 +129,6 @@ hr {
 ol { /* ich weiß nicht warum, aber das braucht man damit das alles funktioniert*/
     display: flex;
     align-items: center;
+    margin: 20px 0px 10px 0px;
 }
 

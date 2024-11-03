@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="layout.css">
 </head>
 <body>
-    <h1>Freundesliste</h1>
 
+    <h1>Friends</h1>
 
-<nav>
+<nav class="logoutSettings">
     <a href="logout.html">&lt; Logout</a>
     <span> | </span>
     <a href="settings.html">Settings</a>
@@ -44,14 +44,12 @@
 <h2>New Requests</h2>
 
 <ol>
-    <li class="request-item">
-       1. Request from <b> Track</b>
+    <li>Request from <b> Track</b></li>
         <form action="friend_action.html" method="post">
             <button type="submit" name="action" value="accept">Accept</button>
             <button type="submit" name="action" value="deny">Deny</button>
             <input type="hidden" name="friend" value="Track">
         </form>
-    </li>
 </ol>
 
 <hr>
