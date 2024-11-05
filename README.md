@@ -20,3 +20,8 @@ formulare.css: Theresa
 responsive.css: Vincent
 
 CAVE: bitte den link "remove friend" der Klasse .danger-links zugehörig machen
+
+Aufgabe 3:
+Aufgabe a: Tomke
+Aufgabe b: Theresa
+Aufgabe c: Vincent
