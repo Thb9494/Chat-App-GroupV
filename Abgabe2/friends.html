@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Friend list</title>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
 
-  <body>
-    <h1 class="h1left">Friends</h1>
-    <div class="navbar">
-      <!-- &lt is the sign for the "<" -> span changes the inline styling without 
+<head>
+  <title>Friend list</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <h1 class="h1left">Friends</h1>
+  <div class="navbar">
+    <!-- &lt is the sign for the "<" -> span changes the inline styling without 
             changing the representation of the, in this case, link
             &gt stands for ">" -->
 
-      <a href="logout.html"> <span>&lt; Logout</span></a> |
+    <a href="logout.html"> <span>&lt; Logout</span></a> |
 
-      <!-- The pipe character is seprating the two links -->
+    <!-- The pipe character is seprating the two links -->
 
-      <a href="settings.html"> Settings</a>
-    </div>
+    <a href="settings.html"> Settings</a>
+  </div>
 
-    <!-- hr is rendering a seperator line -->
+  <!-- hr is rendering a seperator line -->
 
-    <hr />
+  <hr />
 
-    <div class="chatfield">
-      <ul>
-        <li>
-          <a href="chat.html"> Tom </a><div>3</div>
-        </li>
-        <li>
-          <a href="chat.html"> Marvin </a><div>1</div>
-        </li>
-        <li>
-          <a href="chat.html"> Tick</a>
-        </li>
-        <li>
-          <a href="chat.html"> Trick</a>
-        </li>
-      </ul>
-    </div>
-    <hr>
-    <div>
-        <h2 class="h2left">New Requests</h2>
+  <div class="chatfield">
+    <ul>
+      <li>
+        <a href="chat.html"> Tom </a>
+        <div>3</div>
+      </li>
+      <li>
+        <a href="chat.html"> Marvin </a>
+        <div>1</div>
+      </li>
+      <li>
+        <a href="chat.html"> Tick</a>
+      </li>
+      <li>
+        <a href="chat.html"> Trick</a>
+      </li>
+    </ul>
+  </div>
+  <hr>
+  <div>
+    <h2 class="h2left">New Requests</h2>
 
-        <ol>
-            <li>Friend request from <b>Track</b>
-                <a href="unknownyet.txt"><button class="regular-button">Accept</button></a>
-                <a href="unknownyet.txt"><button class="regular-button">Reject</button></a>
-            </li>
-        </ol>
-    </div>
+    <ol>
+      <li>Friend request from <b>Track</b>
+        <a href="unknownyet.txt"><button class="regular-button">Accept</button></a>
+        <a href="unknownyet.txt"><button class="regular-button">Reject</button></a>
+      </li>
+    </ol>
+  </div>
 
-    <form id="friend-form">
+  <!-- <form id="friend-form">
       <div class="responsive-input">
         <input
           placeholder="Add Friend to List"
@@ -62,71 +65,71 @@
         <datalist id="friend-selector"></datalist>
         <button type="button" id="add-friend-button" class="send-add-button">Add</button>
       </div>
-    </form>
+    </form> -->
 
-    <script>
-      const loggedInUser = "Tom"; // Beispiel für den eingeloggten Nutzer
-      const friends = ["Tom", "Marvin", "Tick", "Trick"]; // Beispielhafte Freundesliste
+  <input placeholder="Add Friend to List" name="friendRequestName" id="friend-request-name" list="friend-selector">
+  <datalist id="friend-selector">
+    <!-- <option>Tom</option>
+    <option>Jerry</option>
+    weitere Einträge -->
+  </datalist>
+  <button type="button" id="add-friend-button">Add</button>
 
-      // Dummy-Datensatz, den wir simulieren
-      const dummyUserList = ["Tom", "Marvin", "Tick", "Trick", "Jerry", "Track", "Anna", "John"];
+  <script>
+    function loadUsers() {
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          let data = JSON.parse(xmlhttp.responseText);
+          console.log(data);
+          populateDatalist(data);
+        }
+      };
+      xmlhttp.open("GET", "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac/user", true);
+      // Add token, e. g., from Tom
+      xmlhttp.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyMDIxNDYwfQ.3g4DxMDq6WiV6GBwUU8Hz1ho4UJfcS0ZfHXlTxHiOH8');
+      xmlhttp.send();
+    }
+    const loggedInUser = "Tom"; // Aktuell eingeloggter Benutzer
+    
 
-      // 1. Filtert und füllt die Datalist basierend auf der Benutzerliste
-      function populateDatalist() {
-        const datalist = document.getElementById("friend-selector");
-        datalist.innerHTML = ""; // Datalist leeren
+    // Datalist mit Benutzernamen befüllen
+    function populateDatalist(users) {
+      const datalist = document.getElementById("friend-selector");
 
-        // Filtere die Liste und füge Optionen hinzu
-        dummyUserList
-          .filter(user => user !== loggedInUser && !friends.includes(user)) // Filtere Freunde und aktuellen User
+
+      
+
+     // Gefilterte Benutzer basierend auf der Eingabe
+        users
           .forEach(user => {
             const option = document.createElement("option");
             option.value = user;
             datalist.appendChild(option);
           });
       }
+    
 
-      // 2. Hinzufügen neuer Freunde (über AJAX-Anfrage simuliert)
-      document.getElementById("add-friend-button").addEventListener("click", () => {
-        const input = document.getElementById("friend-request-name");
-        const friendRequestName = input.value;
+    // Hinzufügen neuer Freunde bei Klick auf den Button
+    document.getElementById("add-friend-button").addEventListener("click", () => {
+      const input = document.getElementById("friend-request-name");
+      const friendRequestName = input.value;
 
-        if (!friendRequestName || friends.includes(friendRequestName) || friendRequestName === loggedInUser) {
-          alert("Bitte wählen Sie einen gültigen Freund aus der Liste.");
-          return;
-        }
+      if (!friendRequestName || friends.includes(friendRequestName) || friendRequestName === loggedInUser) {
+        alert("Bitte wählen Sie einen gültigen Freund aus der Liste.");
+        return;
+      }
 
-        // AJAX-Anfrage simulieren
-        fetch("https://online-lectures-cs.thi.de/chat/dummy#friend-request", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ friendRequestName })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            alert(`Freundschaftsanfrage an ${friendRequestName} gesendet!`);
-            input.value = ""; // Eingabefeld leeren
-            populateDatalist(); // Datalist aktualisieren
-          } else {
-            alert("Fehler beim Senden der Freundschaftsanfrage.");
-          }
-        })
-        .catch(error => console.error("Fehler:", error));
-      });
+      
+    });
 
-      // Initiale Befüllung der Datalist
-      populateDatalist();
-    </script>
+    // Initiale Befüllung der Datalist
+    loadUsers();
 
-    <hr>
-    <form action="./friends.html">
-    <div class="responsive-input">
-      <input class="chatinput" placeholder="Add Friend to List" />
-      <button type="submit" class="send-add-button">Add</button>
-    </div>
-</form>
-  </body>
+  </script>
+
+  <hr>
+ 
+</body>
+
 </html>
