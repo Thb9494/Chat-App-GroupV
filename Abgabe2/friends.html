@@ -61,98 +61,105 @@
   <button type="button" id="add-friend-button">Add</button>
 
   <script>
-    const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyMDIxNDYwfQ.3g4DxMDq6WiV6GBwUU8Hz1ho4UJfcS0ZfHXlTxHiOH8'
-
+    const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyMDIxNDYwfQ.3g4DxMDq6WiV6GBwUU8Hz1ho4UJfcS0ZfHXlTxHiOH8';
+  
     function getUsers() {
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-          let data = JSON.parse(xmlhttp.responseText);
-          console.log(data);
-          populateDatalist(data);
-        }
-      };
-      xmlhttp.open("GET", "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac/user", true);
-      // Add token, e. g., from Tom
-      xmlhttp.setRequestHeader('Authorization', TOKEN);
-      xmlhttp.send();
+      return new Promise((resolve, reject) => {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+          if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+              resolve(JSON.parse(xmlhttp.responseText));
+            } else {
+              reject("Failed to fetch users");
+            }
+          }
+        };
+        xmlhttp.open("GET", "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac/user", true);
+        xmlhttp.setRequestHeader('Authorization', TOKEN);
+        xmlhttp.send();
+      });
     }
-
+  
     function getFriends() {
-      let xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-          let data = JSON.parse(xmlhttp.responseText);
-          console.log(data);
-          return data;
-        }
-      };
-      xmlhttp.open("GET", "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac/friend", true);
-      xmlhttp.setRequestHeader('Content-type', 'application/json');
-      xmlhttp.setRequestHeader('Authorization', TOKEN);
-      xmlhttp.send();
+      return new Promise((resolve, reject) => {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+          if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+              resolve(JSON.parse(xmlhttp.responseText));
+            } else {
+              reject("Failed to fetch friends");
+            }
+          }
+        };
+        xmlhttp.open("GET", "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac/friend", true);
+        xmlhttp.setRequestHeader('Content-type', 'application/json');
+        xmlhttp.setRequestHeader('Authorization', TOKEN);
+        xmlhttp.send();
+      });
     }
-
+  
+    function populateDatalist(users) {
+      const datalist = document.getElementById("friend-selector");
+      datalist.innerHTML = ""; // Vorherige Einträge löschen
+  
+      users.forEach(user => {
+        const option = document.createElement("option");
+        option.value = user;
+        datalist.appendChild(option);
+      });
+    }
+  
+    function onClickAddFriend(filteredUsers) {
+      document.getElementById("add-friend-button").addEventListener("click", () => {
+        const input = document.getElementById("friend-request-name");
+        const friendRequestName = input.value;
+  
+        if (!friendRequestName || !filteredUsers.includes(friendRequestName)) {
+          alert("Bitte wählen Sie einen gültigen Freund aus der Liste.");
+          return;
+        }
+  
+        postFriends(friendRequestName); // Freund hinzufügen
+        alert(`Freundesanfrage an ${friendRequestName} gesendet!`);
+      });
+    }
+  
     function postFriends(userName) {
       let xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 204) {
-          console.log("Requested...");
+          console.log("Freund hinzugefügt...");
         }
       };
       xmlhttp.open("POST", "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac/friend", true);
       xmlhttp.setRequestHeader('Content-type', 'application/json');
       xmlhttp.setRequestHeader('Authorization', TOKEN);
-      let data = {
-        username: userName
-      };
-      let jsonString = JSON.stringify(data);
-      xmlhttp.send(jsonString);
+      let data = { username: userName };
+      xmlhttp.send(JSON.stringify(data));
     }
-
-    // Datalist mit Benutzernamen befüllen
-    function populateDatalist(users) {
-      const datalist = document.getElementById("friend-selector");
-
-      // Gefilterte Benutzer basierend auf der Eingabe
-      users
-        .forEach(user => {
-          const option = document.createElement("option");
-          option.value = user;
-          datalist.appendChild(option);
-        });
-    }
-
-    function onClickAddFriend() {
-      // Hinzufügen neuer Freunde bei Klick auf den Button
-      document.getElementById("add-friend-button").addEventListener("click", () => {
-        const input = document.getElementById("friend-request-name");
-        const friendRequestName = input.value;
-
-        if (!friendRequestName || users.includes(friendRequestName) || friendRequestName === loggedInUser) {
-          alert("Bitte wählen Sie einen gültigen Freund aus der Liste.");
-          return;
-        }
-      });
-    }
-
+  
     const loggedInUser = "Tom"; // Aktuell eingeloggter Benutzer
+  
+    // Hauptlogik
+    async function initialize() {
+      try {
+        const [users, friends] = await Promise.all([getUsers(), getFriends()]);
+        const friendsList = friends.map(friend => friend.username);
 
-
-
-    // Initiale Befüllung der Datalist
-    const users = getUsers();
-    const friends = getFriends();
-
-    const filteredUsers = users.filter(user => !friends.includes(user) && user !== loggedInUser);
-
-
-
-    onClickAddFriend();
-
-
+        const filteredUsers = users.filter(user => !friendsList.includes(user) && user !== loggedInUser);
+  
+        populateDatalist(filteredUsers); // Datalist füllen
+        onClickAddFriend(filteredUsers); // Klick-Listener setzen
+      } catch (error) {
+        console.error("Error during initialization:", error);
+      }
+    }
+  
+    // Initialisierung
+    initialize();
   </script>
-
   <hr>
 
 </body>
