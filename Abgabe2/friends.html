@@ -33,7 +33,7 @@
   <div>
     <h2 class="h2left">New Requests</h2>
 
-    <ol id ="requestlist">
+    <ol id="requestlist">
       <li>Friend request from <b>Track</b>
         <a href="unknownyet.txt"><button class="regular-button">Accept</button></a>
         <a href="unknownyet.txt"><button class="regular-button">Reject</button></a>
@@ -48,7 +48,8 @@
   <button type="button" id="add-friend-button">Add</button>
 
   <script>
-    const TOKEN = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyMDIxNDYwfQ.3g4DxMDq6WiV6GBwUU8Hz1ho4UJfcS0ZfHXlTxHiOH8';
+    window.backendUrl = "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac";
+    window.token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSmVycnkiLCJpYXQiOjE3MzIwMjE0NjB9.X42SAGOFXKjYqAdxYZXV4f0K3xcmDkvN6xVhbN5aOC4';
 
     function getUsers() {
       return new Promise((resolve) => {
@@ -59,8 +60,8 @@
             resolve(data);
           }
         };
-        xmlhttp.open("GET", "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac/user", true);
-        xmlhttp.setRequestHeader('Authorization', TOKEN);
+        xmlhttp.open("GET", backendUrl + "/user", true);
+        xmlhttp.setRequestHeader('Authorization', token);
         xmlhttp.send();
       })
 
@@ -75,9 +76,9 @@
             resolve(data);
           }
         };
-        xmlhttp.open("GET", "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac/friend", true);
+        xmlhttp.open("GET", backendUrl + "/friend", true);
         xmlhttp.setRequestHeader('Content-type', 'application/json');
-        xmlhttp.setRequestHeader('Authorization', TOKEN);
+        xmlhttp.setRequestHeader('Authorization', token);
         xmlhttp.send();
       });
     }
@@ -89,9 +90,9 @@
           console.log("Requested...");
         }
       };
-      xmlhttp.open("POST", "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac/friend", true);
+      xmlhttp.open("POST", backendUrl + "/friend", true);
       xmlhttp.setRequestHeader('Content-type', 'application/json');
-      xmlhttp.setRequestHeader('Authorization', TOKEN);
+      xmlhttp.setRequestHeader('Authorization', token);
       let data = {
         username: userName
       };
@@ -119,7 +120,7 @@
         if (friend.status === "accepted") { // Nur akzeptierte Freunde anzeigen
           const li = document.createElement("li");
           const a = document.createElement("a");
-          a.href = "chat.html";
+          a.setAttribute("href", "chat.html?friend=" + friend.username);
           a.textContent = friend.username;
           li.appendChild(a);
           friendlist.appendChild(li);
@@ -143,20 +144,18 @@
           const acceptButton = document.createElement("button");
           acceptButton.textContent = "Accept";
           acceptButton.addEventListener("click", () => {
-            postFriends(friend.username);
           });
 
           const rejectButton = document.createElement("button");
           rejectButton.textContent = "Reject";
           rejectButton.addEventListener("click", () => {
-            postFriends(friend.username);
           });
 
           li.appendChild(acceptButton);
           li.appendChild(rejectButton);
           requestlist.appendChild(li);
 
-         
+
         }
         console.log("friend:", friend);
       });
@@ -182,41 +181,14 @@
       });
     }
 
-
-    function postFriends(userName) {
-      let xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 204) {
-          console.log("Freund hinzugefügt...");
-        }
-      };
-      xmlhttp.open("POST", "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac/friend", true);
-      xmlhttp.setRequestHeader('Content-type', 'application/json');
-      xmlhttp.setRequestHeader('Authorization', TOKEN);
-      let data = { username: userName };
-      xmlhttp.send(JSON.stringify(data));
-    }
-
-
-    function postFriends(userName) {
-      let xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 204) {
-          console.log("Freund hinzugefügt...");
-        }
-      };
-      xmlhttp.open("POST", "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac/friend", true);
-      xmlhttp.setRequestHeader('Content-type', 'application/json');
-      xmlhttp.setRequestHeader('Authorization', TOKEN);
-      let data = { username: userName };
-      xmlhttp.send(JSON.stringify(data));
-    }
-
     const loggedInUser = "Tom"; // Aktuell eingeloggter Benutzer
+
+
 
     // Hauptlogik
     async function main() {
       try {
+
         var friends = await getFriends(); // object
         var acceptedFriends = friends.filter(friend => friend.status === "accepted");
         var requestedFriends = friends.filter(friend => friend.status === "requested");
@@ -229,15 +201,27 @@
           && !friendUsernames.includes(user) // ohne bereits hinzugefügte/angefragte Freunde
         );
 
-
-        window.setInterval(function() { friends = getFriends();
-        }, 1000);
-
         createFriendlist(friends);
         createDatalist(filteredUsers);
         createRequestList(friends);
         onClickAddFriend(filteredUsers);
 
+
+        window.setInterval(async function () { // Aktualisierung der Freundesliste
+          try {
+            // Freunde neu abrufen
+            const friends = await getFriends();
+            const acceptedFriends = friends.filter(friend => friend.status === "accepted");
+            const requestedFriends = friends.filter(friend => friend.status === "requested");
+
+            // Listen im DOM aktualisieren
+            createFriendlist(acceptedFriends);
+            createRequestList(requestedFriends);
+            console.log("Listen aktualisiert.");
+          } catch (error) {
+            console.error("Fehler beim Aktualisieren der Freundesliste:", error);
+          }
+        }, 1000);
 
 
       } catch (error) {
