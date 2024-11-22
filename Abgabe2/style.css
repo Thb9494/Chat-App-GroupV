@@ -176,7 +176,7 @@ html {
     font-family: 'Times New Roman', Times, serif;
     text-indent: 20px;
 }
-.chatfield {
+.chatfield, .friends {
     border: 1px solid gray;
     background-color: white;
     border-radius: 5px;
@@ -185,6 +185,23 @@ html {
     padding: 20px 10px;
     text-align: left;
 }
+.chatfield li, .friends li {
+    list-style-type: none;
+    padding: 7px;
+    font-size: larger;
+}
+.chatfield li div, .friends li div {
+    float: right;
+    background-color: rgb(66, 98, 244);
+    color: white;
+    padding: 3px 6px;
+
+}
+.chatfield li a, .friends li a {
+    color: inherit;
+    text-decoration-line: none;
+}
+
 .chattext {
     display: inline;
 }
@@ -202,22 +219,8 @@ html {
 .chatbutton {
     float: right;
 }
-.chatfield li {
-    list-style-type: none;
-    padding: 7px;
-    font-size: larger;
-}
-.chatfield li div {
-    float: right;
-    background-color: rgb(66, 98, 244);
-    color: white;
-    padding: 3px 6px;
 
-}
-.chatfield li a{
-    color: inherit;
-    text-decoration-line: none;
-}
+
 
 .chatinput a button {
     background-color: grey; 
