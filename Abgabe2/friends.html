@@ -33,7 +33,7 @@
   <div>
     <h2 class="h2left">New Requests</h2>
 
-    <ol>
+    <ol id ="requestlist">
       <li>Friend request from <b>Track</b>
         <a href="unknownyet.txt"><button class="regular-button">Accept</button></a>
         <a href="unknownyet.txt"><button class="regular-button">Reject</button></a>
@@ -131,6 +131,37 @@
       });
     }
 
+    function createRequestList(friends) {
+      const requestlist = document.getElementById("requestlist");
+      requestlist.innerHTML = ""; // Vorherige Einträge löschen
+
+      friends.forEach(friend => {
+        if (friend.status === "requested") { // Nur angefragte Freunde anzeigen
+          const li = document.createElement("li");
+          li.textContent = friend.username;
+
+          const acceptButton = document.createElement("button");
+          acceptButton.textContent = "Accept";
+          acceptButton.addEventListener("click", () => {
+            postFriends(friend.username);
+          });
+
+          const rejectButton = document.createElement("button");
+          rejectButton.textContent = "Reject";
+          rejectButton.addEventListener("click", () => {
+            postFriends(friend.username);
+          });
+
+          li.appendChild(acceptButton);
+          li.appendChild(rejectButton);
+          requestlist.appendChild(li);
+
+         
+        }
+        console.log("friend:", friend);
+      });
+    }
+
     function onClickAddFriend(filterUsers) {
       document.getElementById("add-friend-button").addEventListener("click", () => {
         const input = document.getElementById("friend-request-name");
@@ -186,18 +217,27 @@
     // Hauptlogik
     async function main() {
       try {
-        const friends = await getFriends(); // object
-        const users = await getUsers();
-        const friendUsernames = friends.map(friend => friend.username); //string[]
+        var friends = await getFriends(); // object
+        var acceptedFriends = friends.filter(friend => friend.status === "accepted");
+        var requestedFriends = friends.filter(friend => friend.status === "requested");
 
-        const filteredUsers = users.filter(user =>
+        var users = await getUsers();
+        var friendUsernames = friends.map(friend => friend.username); //string[]
+
+        var filteredUsers = users.filter(user =>
           user !== loggedInUser // ohne eingeloggten Benutzer
           && !friendUsernames.includes(user) // ohne bereits hinzugefügte/angefragte Freunde
         );
 
+
+        window.setInterval(function() { friends = getFriends();
+        }, 1000);
+
         createFriendlist(friends);
         createDatalist(filteredUsers);
+        createRequestList(friends);
         onClickAddFriend(filteredUsers);
+
 
 
       } catch (error) {
