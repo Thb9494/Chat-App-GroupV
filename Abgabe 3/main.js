@@ -182,6 +182,9 @@ async function main() {
   }
 }
 
+// main
+main();
+
 // register-Logik
 
 let createAccountButton = document.getElementById("createAccountButton");
@@ -261,9 +264,6 @@ function validateFormFields(event) {
         window.location.href = "friends.html";
     }
 }
-
-// main
-main();
 
 
 
