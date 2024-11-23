@@ -14,9 +14,9 @@ function validateFormFields(event) {
     //Varible für die letzliche Valiedierung
     let validation = true;
     //Variable für die Fehlertexte
-    let userNameValidationError = document.getElementById("userNameFieldError");
-    let passwordValidationError = document.getElementById("passwordFieldError");
-    let confirmPasswordValidationError = document.getElementById("confirmPasswordFieldError");
+    //let userNameValidationError = document.getElementById("userNameFieldError");
+    //let passwordValidationError = document.getElementById("passwordFieldError");
+    //let confirmPasswordValidationError = document.getElementById("confirmPasswordFieldError");
 
     //Nutzernamen überprüfen
     if (userNameValidation.value.length < 3 || userNameValidation.value == "") {
