@@ -26,4 +26,7 @@ Aufgabe a: Tomke
 Aufgabe b: Theresa
 Aufgabe c: Vincent
 
-ID, fürs Backend: b4737d8e-6b9c-4174-8f7e-60a25a85ffb7
+Token sind in main.js hinterlegt
+
+Bitte Chat-Link so benennen: a.setAttribute("href", "chat.html?friend=" + friend.username);
+(wie in der Angabe von Aufgabe b benennen)
