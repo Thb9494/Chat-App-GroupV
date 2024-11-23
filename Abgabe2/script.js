@@ -1,5 +1,8 @@
 // register
 
+window.backendUrl = "https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96";
+window.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyMzk1ODg2fQ.7ywzokah671mTV5qaH4hS_n7d0IbUk8rwwaa8sA_s0E";
+
 let createAccountButton = document.getElementById("createAccountButton");
 createAccountButton.addEventListener("click", validateFormFields);
 
@@ -25,21 +28,21 @@ function validateFormFields(event) {
         validation = false;
     }
     else if(userNameValidation.value.length >= 3){
-        var xmlhttp = new XMLHttpRequest();
+
+        const xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4) {
             if(xmlhttp.status == 204) {
-                console.log("Exists");
                 userNameValidationError.textContent = "Der Nutzername existiert bereits";
                 userNameValidation.style.border = "2px solid red";
                 validation = false;
             } else if(xmlhttp.status == 404) {
-                console.log("Does not exist");
                 userNameValidation.style.border = "2px solid green";
+                userNameValidationError.textContent = "";
             }
         }
         };
-        xmlhttp.open("GET", "https://online-lectures-cs.thi.de/chat/3bec886e-beae-4d6b-bfcd-f9389724c5e5/user/Tom", true);
+        xmlhttp.open("GET" ,"https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96/user/" + userNameValidation.value, true);
         xmlhttp.send();
     }
     else{
