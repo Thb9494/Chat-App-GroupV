@@ -182,9 +182,6 @@ async function main() {
   }
 }
 
-// main
-main();
-
 // register-Logik
 
 let createAccountButton = document.getElementById("createAccountButton");
@@ -198,8 +195,10 @@ function validateFormFields(event) {
     let userNameValidation = document.getElementById("userNameField");
     let passwordValidation = document.getElementById("passwordField");
     let confirmPasswordValidation = document.getElementById("confirmPasswordField");
+
     //Varible für die letzliche Valiedierung
     let validation = true;
+
     //Variable für die Fehlertexte
     //let userNameValidationError = document.getElementById("userNameFieldError");
     //let passwordValidationError = document.getElementById("passwordFieldError");
@@ -226,7 +225,7 @@ function validateFormFields(event) {
             }
         }
         };
-        xmlhttp.open("GET" ,"https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96/user/" + userNameValidation.value, true);
+        xmlhttp.open("GET" ,"https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96/user/" + userNameValidation.value, false);
         xmlhttp.send();
     }
 
@@ -262,5 +261,9 @@ function validateFormFields(event) {
         window.location.href = "friends.html";
     }
 }
+
+// main
+main();
+
 
 
