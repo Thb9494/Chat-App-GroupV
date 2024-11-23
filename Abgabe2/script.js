@@ -1,8 +1,5 @@
 // register
 
-window.backendUrl = "https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96";
-window.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyMzk1ODg2fQ.7ywzokah671mTV5qaH4hS_n7d0IbUk8rwwaa8sA_s0E";
-
 let createAccountButton = document.getElementById("createAccountButton");
 createAccountButton.addEventListener("click", validateFormFields);
 
@@ -14,7 +11,7 @@ function validateFormFields(event) {
     let userNameValidation = document.getElementById("userNameField");
     let passwordValidation = document.getElementById("passwordField");
     let confirmPasswordValidation = document.getElementById("confirmPasswordField");
-    //Varible für die Valiedierung
+    //Varible für die letzliche Valiedierung
     let validation = true;
     //Variable für die Fehlertexte
     let userNameValidationError = document.getElementById("userNameFieldError");
@@ -23,7 +20,7 @@ function validateFormFields(event) {
 
     //Nutzernamen überprüfen
     if (userNameValidation.value.length < 3 || userNameValidation.value == "") {
-        userNameValidationError.textContent = "Der Nutzername muss mindestens 3 Zeichen lang sein";
+        //userNameValidationError.textContent = "Der Nutzername muss mindestens 3 Zeichen lang sein";
         userNameValidation.style.border = "2px solid red";
         validation = false;
     }
@@ -33,39 +30,42 @@ function validateFormFields(event) {
         xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4) {
             if(xmlhttp.status == 204) {
-                userNameValidationError.textContent = "Der Nutzername existiert bereits";
+                //userNameValidationError.textContent = "Der Nutzername existiert bereits";
                 userNameValidation.style.border = "2px solid red";
                 validation = false;
             } else if(xmlhttp.status == 404) {
+                //userNameValidationError.textContent = "";
                 userNameValidation.style.border = "2px solid green";
-                userNameValidationError.textContent = "";
             }
         }
         };
         xmlhttp.open("GET" ,"https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96/user/" + userNameValidation.value, true);
         xmlhttp.send();
     }
-    else{
-        userNameValidation.style.border = "2px solid green";
-    }
 
     //Passwort überprüfen
     if (passwordValidation.value.length < 8 || passwordValidation.value == "") {
-        passwordValidationError.textContent = "Das Passwort muss mindestens 8 Zeichen lang sein";
+        //passwordValidationError.textContent = "Das Passwort muss mindestens 8 Zeichen lang sein";
         passwordValidation.style.border = "2px solid red";
         validation = false;
     }
     else {
+        //passwordValidationError.textContent = "";
         passwordValidation.style.border = "2px solid green";
     }
 
     //Passwort bestätigen überprüfen
-    if (passwordValidation.textContent != confirmPasswordValidation.textContent || confirmPasswordValidation.value == "") {
-        confirmPasswordValidationError.textContent = "Die Passwörter stimmen nicht überein";
+    if (passwordValidation.value != confirmPasswordValidation.value) {
+        //confirmPasswordValidationError.textContent = "Die Passwörter stimmen nicht überein";
+        confirmPasswordValidation.style.border = "2px solid red";
+        validation = false;
+    }
+    else if(confirmPasswordValidation.value == "" || confirmPasswordValidation.value.length < 8){
         confirmPasswordValidation.style.border = "2px solid red";
         validation = false;
     }
     else {
+        //confirmPasswordValidationError.textContent = "";
         confirmPasswordValidation.style.border = "2px solid green";
 
     }
@@ -77,13 +77,3 @@ function validateFormFields(event) {
 }
 
 
-/*
-    var userNameValidation = document.forms["register-form"]["username"].value; //vielleicht lieber elemente mit getElementById holen
-    if (userNameValidation.lenght < 3) { //lieber nach Länge fragen, nicht nach dem Nutzernamen
-      alert("Der Name muss mindestens 3 Zeichen lang sein"); //z.B. mit DOM-APi das Element holen und Stileigenschaften ändern um visuell dazustellen, ob man es richtig hat
-      return false;
-    }
-  
-    //es fehlt noch UserExist (über Dokumentation)
-    //DOM-Strukutzr Anpassung fehlt noch
-*/
