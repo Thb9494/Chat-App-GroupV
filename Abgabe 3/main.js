@@ -5,17 +5,17 @@ window.backendUrl = "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b
 window.token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyMDIxNDYwfQ.3g4DxMDq6WiV6GBwUU8Hz1ho4UJfcS0ZfHXlTxHiOH8';
 
 function getUsers() {
-  return new Promise((resolve) => {
-    let xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        let data = JSON.parse(xmlhttp.responseText);
+  return new Promise((resolve) => { // Promise: asynchroner Vorgang
+    let xmlhttp = new XMLHttpRequest(); // AJAX-Request
+    xmlhttp.onreadystatechange = function () { 
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) { // Antwort erhalten
+        let data = JSON.parse(xmlhttp.responseText); // Antwort(responseText) als JSON-Objekt
         resolve(data);
       }
     };
-    xmlhttp.open("GET", backendUrl + "/user", true);
-    xmlhttp.setRequestHeader('Authorization', token);
-    xmlhttp.send();
+    xmlhttp.open("GET", backendUrl + "/user", true); // GET-Request an /user
+    xmlhttp.setRequestHeader('Authorization', token); 
+    xmlhttp.send(); 
   })
 
 }
@@ -36,7 +36,7 @@ async function getFriends() {
   });
 }
 
-function postFriends(userName) {
+function postFriends(userName) { // Freund hinzufügen
   let xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState == 4 && xmlhttp.status == 204) {
@@ -96,11 +96,13 @@ function createRequestList(friends) {
 
       const acceptButton = document.createElement("button");
       acceptButton.textContent = "Accept";
+      acceptButton.classList.add("regular-button");
       acceptButton.addEventListener("click", () => {
       });
 
       const rejectButton = document.createElement("button");
       rejectButton.textContent = "Reject";
+      rejectButton.classList.add("regular-button");
       rejectButton.addEventListener("click", () => {
       });
 

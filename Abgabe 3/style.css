@@ -39,6 +39,7 @@ a {
   .remove-friend{
     color: #D2122E; 
   }
+
 .input-descriptor {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -115,11 +116,13 @@ hr {
 ol li {
     text-align: left;
 }
-/*@media (max-width: 900px) {
-html {
-    width: 100%;
+
+input {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    padding: 12px;
+    margin: 5px;
 }
-}*/
 
 
 
