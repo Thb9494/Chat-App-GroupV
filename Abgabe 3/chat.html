@@ -1,35 +1,28 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Chat</title>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="./style.css">
-    <script src="./chat.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="chat.js"></script>
 </head>
-
 <body>
-    <h1 class="h1left" id="partner-name"></h1>
-    <div class="navbar">
-        <a href="./friends.html">&lt; Back</a>
-        |
-        <a href="./profile.html">Profile</a>
-        |
-        <a class="remove-friend" href="./friends.html">Remove Friend</a>
-    </div>
+    <h1 class="left">Chat with</h1>
+    <a href="friends.html" class="leftL"> < Back </a> |
+    <a href="profile.html" class="leftL"> Profile </a> |
+    <a href="friends.html" class="leftL critical"> Remove Friend</a>
     <hr>
-    <div class="chatfield">
-        <div class="chattext">Hallo, Welt!</div>
-        <div class="chattext timestamp">11:43</div>
-        <br>
-        <div class="chattext">Wie gehts?</div>
-        <div class="chattext timestamp">11:50</div>
-    </div>
-    <hr>
-    <div class="responsive-input">
-        <input class="chatinput" placeholder="New Message">
-        <div class="send-add-button">Send</div>
+    <div>
+        <div id="message-container">
+            <!-- Messages will be inserted here -->
+        </div>
+        <div class="chat">
+            <form>
+                <input type="text" placeholder="Type your message...">
+                <input type="button" value="Send" onclick="sendMessage(event)">
+            </form>
+        </div>
     </div>
 </body>
-
 </html>

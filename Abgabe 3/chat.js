@@ -1,57 +1,127 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const sendButton = document.querySelector(".send-add-button");
+// Global configuration - store in main.js or at top of chat.js
+const backendUrl = "https://online-lectures-cs.thi.de/chat/ac6da607-6c49-49b2-a4ec-4ae662913054";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyNDgwOTc5fQ.ipu8rFx07hVcOEe95OVsXx75L8mqjMuXxfk2rfDbS5k";
 
-    const chatpartner = getChatpartner();
-    const headerMessage = 'Chat with ' + chatpartner;
-
-    document.getElementById("partner-name").textContent =  headerMessage;
-
-    if (sendButton) {
-        sendButton.addEventListener("click", () => {
-            const message = document.querySelector(".chatinput").value;
-            console.log("message:", message);
-            sendMessage(message); // Call the function to send the message
-        });
-    }
-
-    loadMessages(); // Call the function to load messages
-    setInterval(loadMessages, 1000); // Reload messages every second
-});
-
+// Get chatpartner from URL using all possible parameter names
 function getChatpartner() {
     const url = new URL(window.location.href);
-    const queryParams = url.searchParams;
-    const friendValue = queryParams.get("friend");
-    return friendValue;
+    // Try different possible parameter names
+    const friend = url.searchParams.get("friend")
+    console.log("Chat partner:", friend); // Debug output
+    return friend;
 }
 
+// Update chat header with friend's name
+function updateChatHeader() {
+    const friend = getChatpartner();
+    const headerElement = document.querySelector("h1");
+    if (headerElement && friend) {
+        headerElement.textContent = `Chat with ${friend}`;
+    }
+}
+
+// Load and display messages
 function loadMessages() {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            let data = JSON.parse(xmlhttp.responseText);
-            console.log(data);
-            // Process the loaded messages here
+    const friend = getChatpartner();
+    if (!friend) {
+        console.error("No friend specified");
+        return;
+    }
+
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+                const messages = JSON.parse(xmlhttp.responseText);
+                displayMessages(messages);
+            } else {
+                console.error("Error loading messages:", xmlhttp.status);
+            }
         }
     };
-    xmlhttp.open("GET", "https://online-lectures-cs.thi.de/chat/dummy/list-messages", true);
-    // Add token, e.g., from Tom
-    xmlhttp.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyNDU1NTgzfQ.g9x_MVT5ZGX-_hnZUcqr1Wlh2fe2OYgvrCTPXpR5tSY');
+
+    xmlhttp.open("GET", `${backendUrl}/message/${friend}`, true);
+    xmlhttp.setRequestHeader('Authorization', 'Bearer ' + token);
     xmlhttp.send();
 }
 
-function sendMessage(message) {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            let data = JSON.parse(xmlhttp.responseText);
-            console.log(data);
-            // Process the sent message here
+// Display messages in the chat
+function displayMessages(messages) {
+    // Find the message container
+    const messageContainer = document.getElementById("message-container");
+    if (!messageContainer) return;
+    
+    // Clear existing messages
+    messageContainer.innerHTML = "";
+    
+    // Add all messages
+    messages.forEach(message => {
+        const messageElement = document.createElement("div");
+        messageElement.className = "chat";
+        messageElement.textContent = `${message.from}: "${message.msg}"`;
+        messageContainer.appendChild(messageElement);
+    });
+}
+
+
+// Send a new message
+function sendMessage(event) {
+    if (event) {
+        event.preventDefault();
+    }
+    
+    const friend = getChatpartner();
+    const inputField = document.querySelector("input[type='text']");
+    if (!friend) {
+        console.error("No friend specified");
+        return;
+    }
+    if (!inputField || !inputField.value.trim()) {
+        console.error("No message to send");
+        return;
+    }
+
+    // Correct format according to documentation
+    const data = {
+        message: inputField.value.trim(),
+        to: friend
+    };
+
+    console.log("Sending message to:", friend);
+    console.log("Message data:", data);
+
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 204) {
+                // Message sent successfully
+                inputField.value = ""; // Clear input field
+                loadMessages(); // Reload messages
+            } else {
+                console.error("Error sending message:", xmlhttp.status);
+                console.error("Response:", xmlhttp.responseText);
+            }
         }
     };
-    xmlhttp.open("POST", "https://online-lectures-cs.thi.de/chat/dummy/send-message", true);
-    // Add token, e.g., from Tom
-    xmlhttp.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyNDU1NTgzfQ.g9x_MVT5ZGX-_hnZUcqr1Wlh2fe2OYgvrCTPXpR5tSY');
+
+    // Correct endpoint - just /message without the recipient
+    xmlhttp.open("POST", `${backendUrl}/message`, true);
+    xmlhttp.setRequestHeader('Authorization', 'Bearer ' + token);
     xmlhttp.setRequestHeader('Content-Type', 'application/json');
-    xmlhttp.send(JSON.stringify({ message: message }));
+    xmlhttp.send(JSON.stringify(data));
 }
+
+// Initialize chat functionality
+function initializeChat() {
+    // Update header with friend's name
+    updateChatHeader();
+    
+    // Load initial messages
+    loadMessages();
+    
+    // Set up periodic message loading
+    window.setInterval(loadMessages, 1000);
+}
+
+// Start everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeChat);
