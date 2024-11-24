@@ -96,11 +96,13 @@ function createRequestList(friends) {
 
       const acceptButton = document.createElement("button");
       acceptButton.textContent = "Accept";
+      acceptButton.classList.add("regular-button");
       acceptButton.addEventListener("click", () => {
       });
 
       const rejectButton = document.createElement("button");
       rejectButton.textContent = "Reject";
+      rejectButton.classList.add("regular-button");
       rejectButton.addEventListener("click", () => {
       });
 
