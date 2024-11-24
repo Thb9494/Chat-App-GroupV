@@ -1,35 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrierung</title>
-</head>
-<body>
-    <img src="../images/user.png" alt="Registration picture" height="100" width="100">
+<hmtl>
+  <head>
+    <title>Chat</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js " defer></script>
+  </head>
+  <body>
+    <img class="roundimg" src="../images/user.png" width="100" height="100" />
     <h1>Register yourself</h1>
-    <form action="./friendlist.html" method="post">
+    <div>
+      <form onsubmit="validateFormFields()"> 
         <fieldset>
-            <legend>Register</legend>
+          <legend class="top-descriptor">Register</legend>
+          <div class="labelandinput">
             <div>
-                <label>Username:</label>
-                <input type="text" name="username" placeholder="Username">
-            </div>
-            <div>
-                <label>Password:</label>
-                <input type="password" name="password" placeholder="Password">
-            </div>
-            <div>
-                <label>Confirm Password:</label>
-                <input type="password" name="password2" placeholder="Confirm Password">
-            </div>
-            <div>
-            </fieldset>
-                <a href="login.html">
-                    <button type="button">Cancel</button>
-                </a>
-                <button type="submit">Create Account</button>
-                
-    </form>
 
-</body>
+              <label class="input-descriptor">Username</label>
+              <input id="userNameField" placeholder="Username" /><br />
+              <div id="userNameFieldError" class="errorMessage"></div>
+
+
+              <label class="input-descriptor">Password</label>
+              <input id="passwordField" type="password" placeholder="Password" /><br />
+              <div id="passwordFieldError" class="errorMessage"></div>
+
+
+              <label class="input-descriptor">Confirm Password</label>
+              <input id="confirmPasswordField" type="password" placeholder="Confirm Password" /><br />
+              <div id="confirmPasswordFieldError" class="errorMessage"></div>
+            </div>
+          </div>
+
+        </fieldset>
+        <a href="./login.html"><button class="regular-button" type="button">Cancel</button></a>
+        <button class="primary-action-button" id="createAccountButton" type="submit">Create Account</button>
+      </form>
+    </div>
+  </body>
+</hmtl>
