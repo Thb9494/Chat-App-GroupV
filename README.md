@@ -30,3 +30,17 @@ Token sind in main.js hinterlegt
 
 Bitte Chat-Link so benennen: a.setAttribute("href", "chat.html?friend=" + friend.username);
 (wie in der Angabe von Aufgabe b benennen)
+
+
+4. Aufgabe:
+   a) Tomke
+   b) Theresa
+   c) Vincent
+   d) Theresa
+   e) Tomke
+   f) Vincent
+   g) Theresa
+   h) Vincent
+   i) Vincent
+   j) Tomke
+   
