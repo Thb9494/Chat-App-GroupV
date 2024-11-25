@@ -30,19 +30,19 @@ function validateFormFields(event) {
 
         const xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4) {
-            if(xmlhttp.status == 204) {
+        if (xmlhttp.readyState == 4) {                  //Anfrage ist abschlossen und die Antwort steht zur Verfügung
+            if(xmlhttp.status == 204) {                 //Anfrage erfolgreich, aber kein Inhalt ->Nutzername steht nicht zur Verfügung
                 //userNameValidationError.textContent = "Der Nutzername existiert bereits";
                 userNameValidation.style.border = "2px solid red";
                 validation = false;
-            } else if(xmlhttp.status == 404) {
+            } else if(xmlhttp.status == 404) {          //Nutzername nicht gefunden -> Nutzername steht zur Verfügung
                 //userNameValidationError.textContent = "";
                 userNameValidation.style.border = "2px solid green";
             }
         }
         };
-        xmlhttp.open("GET" ,"https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96/user/" + userNameValidation.value, false);
-        xmlhttp.send();
+        xmlhttp.open("GET" ,"https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96/user/" + userNameValidation.value, true); //Anfrage wird erstellt 
+        xmlhttp.send(); //Anfrage wird gesendet
     }
 
     //Passwort überprüfen
@@ -74,6 +74,9 @@ function validateFormFields(event) {
 
     //Wenn alles richtig ist, wird die nächste Seite aufgerufen
     if (validation == true) {
-        window.location.href = "friends.html";
+
+        document.getElementById("registerForm").submit(); //Formular abschicken
+
+        //window.location.href = "friends.html"; //formulardaten würden nicht mit übermittelt, from elemnt suchen getelemtbyid ->submit triggern
     }
 }
