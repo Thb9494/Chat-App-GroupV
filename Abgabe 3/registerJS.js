@@ -77,6 +77,6 @@ function validateFormFields(event) {
 
         document.getElementById("registerForm").submit(); //Formular abschicken
 
-        //window.location.href = "friends.html"; //formulardaten würden nicht mit übermittelt, from elemnt suchen getelemtbyid ->submit triggern
+        window.location.href = "friends.html"; //formulardaten würden nicht mit übermittelt, from elemnt suchen getelemtbyid ->submit triggern
     }
 }
