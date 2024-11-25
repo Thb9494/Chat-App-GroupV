@@ -39,11 +39,7 @@ function validateFormFields(event) {
                 //userNameValidationError.textContent = "";
                 userNameValidation.style.border = "2px solid green";
             }
-        }
-        };
-        xmlhttp.open("GET" ,"https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96/user/" + userNameValidation.value, true); //Anfrage wird erstellt 
-        xmlhttp.send(); //Anfrage wird gesendet
-    }
+    
 
     //Passwort überprüfen
     if (passwordValidation.value.length < 8 || passwordValidation.value == "") {
@@ -69,13 +65,16 @@ function validateFormFields(event) {
     else {
         //confirmPasswordValidationError.textContent = "";
         confirmPasswordValidation.style.border = "2px solid green"; //Funktioniert, sollte aber besser in CSS sein
-
     }
 
     //Wenn alles richtig ist, wird die nächste Seite aufgerufen
     if (validation == true) {
 
         document.getElementById("registerForm").submit(); //Formular abschicken, von element suchen getElemtById -> submit triggern
-
     }
+  }
+};
+    xmlhttp.open("GET" ,"https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96/user/" + userNameValidation.value, true); //Anfrage wird erstellt 
+    xmlhttp.send(); //Anfrage wird gesendet
+ }
 }
