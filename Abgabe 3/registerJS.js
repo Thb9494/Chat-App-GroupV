@@ -68,15 +68,14 @@ function validateFormFields(event) {
     }
     else {
         //confirmPasswordValidationError.textContent = "";
-        confirmPasswordValidation.style.border = "2px solid green";
+        confirmPasswordValidation.style.border = "2px solid green"; //Funktioniert, sollte aber besser in CSS sein
 
     }
 
     //Wenn alles richtig ist, wird die nächste Seite aufgerufen
     if (validation == true) {
 
-        document.getElementById("registerForm").submit(); //Formular abschicken
+        document.getElementById("registerForm").submit(); //Formular abschicken, von element suchen getElemtById -> submit triggern
 
-        window.location.href = "friends.html"; //formulardaten würden nicht mit übermittelt, from elemnt suchen getelemtbyid ->submit triggern
     }
 }
