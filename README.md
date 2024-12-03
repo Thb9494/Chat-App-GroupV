@@ -33,14 +33,8 @@ Bitte Chat-Link so benennen: a.setAttribute("href", "chat.html?friend=" + friend
 
 
 4. Aufgabe:
-   a) Tomke
-   b) Theresa
-   c) Vincent
-   d) Theresa
-   e) Tomke
-   f) Vincent
-   g) Theresa
-   h) Vincent
-   i) Vincent
-   j) Tomke
+   Theresa: Login, Logout, Freundesliste
+   Tomke: Registrieren und Chat-Ansicht
+   Vincent: Nutzerprofil Einstellungen und Ansicht
+   Zusammen: Default, User-Klassen, Einarbeitung in BackendService
    
