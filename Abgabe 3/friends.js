@@ -4,6 +4,8 @@
 window.backendUrl = "https://online-lectures-cs.thi.de/chat/62eb1b2e-d66c-4a9b-b172-5942717d0bac";
 window.token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyMDIxNDYwfQ.3g4DxMDq6WiV6GBwUU8Hz1ho4UJfcS0ZfHXlTxHiOH8';
 
+//user und friends werden beim Laden der Seite geladen
+
 function getUsers() {
   return new Promise((resolve) => { // Promise: asynchroner Vorgang
     let xmlhttp = new XMLHttpRequest(); // AJAX-Request
@@ -144,9 +146,7 @@ const loggedInUser = "Tom"; // Aktuell eingeloggter Benutzer
 async function main() {
   try {
 
-    var friends = await getFriends(); // object
-    var acceptedFriends = friends.filter(friend => friend.status === "accepted");
-    var requestedFriends = friends.filter(friend => friend.status === "requested");
+    var friends = await getFriends(); // object[]
 
     var users = await getUsers();
     var friendUsernames = friends.map(friend => friend.username); //string[]
