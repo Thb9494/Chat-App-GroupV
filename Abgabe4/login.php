@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+</html>
+
+<head>
+  <!-- Adding a title to the web page -->
+  <title>Please Sign in</title>
+  <link rel="stylesheet" href="./style.css" />
+  <?php require("start.php"); ?>
+</head>
+
+<body>
+  <img class="roundimg" src="../images/chat.png" width="100" height="100" />
+  <h1>Please sign in</h1>
+  <form action="./friends.html">
+    <fieldset>
+      <legend class="top-descriptor">Login</legend>
+      <div>
+        <div>
+          <label class="input-descriptor">Username</label>
+          <input  placeholder="Username" />
+        </div>
+        <div>
+          <label class="input-descriptor">Password</label>
+          <input placeholder="Password" />
+        </div>
+      </div>
+    </fieldset>
+    <a href="./register.html"><button class="regular-button" type="button">Register</button></a>
+    <button class="primary-action-button" type="submit" value="Login">Login</button>
+  </form>
+</body>
+
+</html>
