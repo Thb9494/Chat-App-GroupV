@@ -4,6 +4,7 @@
   <head>
     <title>Profile Settings</title>
     <link rel="stylesheet" href="./style.css" />
+    <?php require("start.php"); ?>
   </head>
 
   <body>

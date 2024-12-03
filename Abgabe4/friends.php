@@ -5,6 +5,7 @@
   <title>Friend list</title>
   <link rel="stylesheet" href="./style.css" />
   <script src="./friends.js" language="javascript" type="text/javascript" ></script>
+  <?php require("start.php"); ?>
 </head>
 
 <body>

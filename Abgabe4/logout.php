@@ -3,6 +3,7 @@
     <head>
        <title>Logged Out</title>
        <link rel="stylesheet" href="./style.css">
+       <?php require("start.php"); ?>
     </head>
 
     <body>

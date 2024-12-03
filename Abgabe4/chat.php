@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <script src="chat.js"></script>
+    <?php require("start.php"); ?>
 </head>
 <body>
     <h1 class="left">Chat with</h1>
