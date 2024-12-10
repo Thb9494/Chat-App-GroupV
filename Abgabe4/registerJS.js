@@ -1,4 +1,5 @@
 // register-Logik
+document.addEventListener('DOMContentLoaded', function() {
 
 let createAccountButton = document.getElementById("createAccountButton");
 createAccountButton.addEventListener("click", validateFormFields);
@@ -26,18 +27,27 @@ function validateFormFields(event) {
         userNameValidation.style.border = "2px solid red";
         validation = false;
     }
-    else if(userNameValidation.value.length >= 3){
-
-        const xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4) {                  //Anfrage ist abschlossen und die Antwort steht zur Verfügung
-            if(xmlhttp.status == 204) {                 //Anfrage erfolgreich, aber kein Inhalt ->Nutzername steht nicht zur Verfügung
-                //userNameValidationError.textContent = "Der Nutzername existiert bereits";
-                userNameValidation.style.border = "2px solid red";
-                validation = false;
-            } else if(xmlhttp.status == 404) {          //Nutzername nicht gefunden -> Nutzername steht zur Verfügung
-                //userNameValidationError.textContent = "";
-                userNameValidation.style.border = "2px solid green";
+    else {
+        fetch(`ajax_check_user.php?username=${encodeURIComponent(userNameValidation.value)}`)
+                .then(response => {
+                    if (response.status === 409) {
+                        userNameValidationError.textContent = "Der Benutzername ist bereits vergeben.";
+                        userNameValidation.style.border = "2px solid red";
+                        validation = false;
+                    } else if (response.status === 200) {
+                        userNameValidationError.textContent = "";
+                        userNameValidation.style.border = "2px solid green";
+                    } else {
+                        userNameValidationError.textContent = "Fehler bei der Überprüfung des Benutzernamens.";
+                        userNameValidation.style.border = "2px solid red";
+                        validation = false;
+                    }
+                })
+                .catch(error => {
+                    userNameValidationError.textContent = "Fehler bei der Überprüfung des Benutzernamens.";
+                    userNameValidation.style.border = "2px solid red";
+                    validation = false;
+                });
             }
     
 
@@ -69,12 +79,7 @@ function validateFormFields(event) {
 
     //Wenn alles richtig ist, wird die nächste Seite aufgerufen
     if (validation == true) {
-
         document.getElementById("registerForm").submit(); //Formular abschicken, von element suchen getElemtById -> submit triggern
     }
   }
-};
-    xmlhttp.open("GET" ,"https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96/user/" + userNameValidation.value, true); //Anfrage wird erstellt 
-    xmlhttp.send(); //Anfrage wird gesendet
- }
-}
+ });

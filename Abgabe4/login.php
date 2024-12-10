@@ -6,7 +6,6 @@
   <!-- Adding a title to the web page -->
   <title>Please Sign in</title>
   <link rel="stylesheet" href="./style.css" />
-  <?php require("start.php"); ?>
 </head>
 
 <body>

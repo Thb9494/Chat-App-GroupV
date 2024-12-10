@@ -6,7 +6,15 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
     <script src="chat.js"></script>
-    <?php require("start.php"); ?>
+
+    <?php require("start.php"); 
+    $user = new Model\User("Test");
+    $json = json_encode($user);
+    echo $json;"<br>";
+    $jsonObject = json_decode($json);
+    $newUser = Model\User::fromJson($jsonObject);
+    var_dump($newUser);?>
+
 </head>
 <body>
     <h1 class="left">Chat with</h1>
