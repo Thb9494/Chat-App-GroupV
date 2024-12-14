@@ -94,7 +94,7 @@
             </div>
           </div>
         </fieldset>
-        <a href="./login.html"><button class="regular-button" type="button">Cancel</button></a>
+        <a href="./login.php"><button class="regular-button" type="button">Cancel</button></a>
         <button class="primary-action-button" id="createAccountButton" type="submit">Create Account</button>
       </form>
     </div>

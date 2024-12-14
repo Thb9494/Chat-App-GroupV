@@ -9,7 +9,7 @@ class Friend implements JsonSerializable
     private $status;
     private $unread;
 
-    public function __construct($username = "")
+    public function __construct($username = null)
     {
         $this->username = $username;
     }
@@ -30,6 +30,14 @@ class Friend implements JsonSerializable
     public function jsonSerialize(): mixed
     {
         return get_object_vars($this);
+    }
+
+    //Zusätzlich bieten sich zwei Methoden an, die den Zustand auf accepted bzw. dismissed setzen.
+    public function accept() {
+        $this->status = "accepted";
+    }
+    public function reject() {
+        $this->status = "dismissed";
     }
 
     public static function fromJson($data) {

@@ -1,9 +1,12 @@
+<?php
+    require("start.php");
+    session_unset();
+?>
 <!DOCTYPE html>
 <html>
     <head>
        <title>Logged Out</title>
        <link rel="stylesheet" href="./style.css">
-       <?php require("start.php"); ?>
     </head>
 
     <body>
@@ -20,7 +23,7 @@
         </p>
 
         <a 
-            href="login.html"> Login again </a>
+            href="login.php"> Login again </a>
 
 
     </body>
