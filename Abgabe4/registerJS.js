@@ -1,85 +1,73 @@
-// register-Logik
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    const registerForm = document.getElementById("registerForm");
+    const userNameField = document.getElementById("userNameField");
+    const passwordField = document.getElementById("passwordField");
+    const confirmPasswordField = document.getElementById("confirmPasswordField");
 
-let createAccountButton = document.getElementById("createAccountButton");
-createAccountButton.addEventListener("click", validateFormFields);
+    const userNameFieldError = document.getElementById("userNameFieldError");
+    const passwordFieldError = document.getElementById("passwordFieldError");
+    const confirmPasswordFieldError = document.getElementById("confirmPasswordFieldError");
 
-function validateFormFields(event) {
+    // Benutzername-Validierung mit AJAX
+    userNameField.addEventListener("blur", function () {
+        const username = userNameField.value.trim();
+        if (username.length < 3) {
+            userNameFieldError.textContent = "Der Benutzername muss mindestens 3 Zeichen lang sein.";
+            userNameField.style.border = "2px solid red";
+            return;
+        }
+        fetch(`ajax_check_user.php?username=${encodeURIComponent(username)}`)
+            .then(response => {
+                if (response.status === 409) {
+                    userNameFieldError.textContent = "Der Benutzername ist bereits vergeben.";
+                    userNameField.style.border = "2px solid red";
+                } else if (response.status === 200) {
+                    userNameFieldError.textContent = "";
+                    userNameField.style.border = "2px solid green";
+                } 
+            })
+            .catch(() => {
+                userNameFieldError.textContent = "Netzwerkfehler bei der Überprüfung.";
+                userNameField.style.border = "2px solid red";
+            });
+    });
 
-    event.preventDefault();
+    // Formular-Validierung vor Absenden
+    registerForm.addEventListener("submit", function (event) {
+        let isValid = true;
 
-    //Variablen für die einzelnen Felder
-    let userNameValidation = document.getElementById("userNameField");
-    let passwordValidation = document.getElementById("passwordField");
-    let confirmPasswordValidation = document.getElementById("confirmPasswordField");
+        // Benutzername überprüfen
+        if (userNameField.value.trim().length < 3) {
+            userNameFieldError.textContent = "Der Benutzername muss mindestens 3 Zeichen lang sein.";
+            userNameField.style.border = "2px solid red";
+            isValid = false;
+        } else {
+            userNameFieldError.textContent = "";
+            userNameField.style.border = "2px solid green";
+        }
 
-    //Varible für die letzliche Valiedierung
-    let validation = true;
+        // Passwort überprüfen
+        if (passwordField.value.length < 8) {
+            passwordFieldError.textContent = "Das Passwort muss mindestens 8 Zeichen lang sein.";
+            passwordField.style.border = "2px solid red";
+            isValid = false;
+        } else {
+            passwordFieldError.textContent = "";
+            passwordField.style.border = "2px solid green";
+        }
 
-    //Variable für die Fehlertexte
-    //let userNameValidationError = document.getElementById("userNameFieldError");
-    //let passwordValidationError = document.getElementById("passwordFieldError");
-    //let confirmPasswordValidationError = document.getElementById("confirmPasswordFieldError");
+        // Passwort-Wiederholung überprüfen
+        if (passwordField.value !== confirmPasswordField.value) {
+            confirmPasswordFieldError.textContent = "Die Passwörter stimmen nicht überein.";
+            confirmPasswordField.style.border = "2px solid red";
+            isValid = false;
+        } else {
+            confirmPasswordFieldError.textContent = "";
+            confirmPasswordField.style.border = "2px solid green";
+        }
 
-    //Nutzernamen überprüfen
-    if (userNameValidation.value.length < 3 || userNameValidation.value == "") {
-        //userNameValidationError.textContent = "Der Nutzername muss mindestens 3 Zeichen lang sein";
-        userNameValidation.style.border = "2px solid red";
-        validation = false;
-    }
-    else {
-        fetch(`ajax_check_user.php?username=${encodeURIComponent(userNameValidation.value)}`)
-                .then(response => {
-                    if (response.status === 409) {
-                        userNameValidationError.textContent = "Der Benutzername ist bereits vergeben.";
-                        userNameValidation.style.border = "2px solid red";
-                        validation = false;
-                    } else if (response.status === 200) {
-                        userNameValidationError.textContent = "";
-                        userNameValidation.style.border = "2px solid green";
-                    } else {
-                        userNameValidationError.textContent = "Fehler bei der Überprüfung des Benutzernamens.";
-                        userNameValidation.style.border = "2px solid red";
-                        validation = false;
-                    }
-                })
-                .catch(error => {
-                    userNameValidationError.textContent = "Fehler bei der Überprüfung des Benutzernamens.";
-                    userNameValidation.style.border = "2px solid red";
-                    validation = false;
-                });
-            }
-    
-
-    //Passwort überprüfen
-    if (passwordValidation.value.length < 8 || passwordValidation.value == "") {
-        //passwordValidationError.textContent = "Das Passwort muss mindestens 8 Zeichen lang sein";
-        passwordValidation.style.border = "2px solid red";
-        validation = false;
-    }
-    else {
-        //passwordValidationError.textContent = "";
-        passwordValidation.style.border = "2px solid green";
-    }
-
-    //Passwort bestätigen überprüfen
-    if (passwordValidation.value != confirmPasswordValidation.value) {
-        //confirmPasswordValidationError.textContent = "Die Passwörter stimmen nicht überein";
-        confirmPasswordValidation.style.border = "2px solid red";
-        validation = false;
-    }
-    else if(confirmPasswordValidation.value == "" || confirmPasswordValidation.value.length < 8){
-        confirmPasswordValidation.style.border = "2px solid red";
-        validation = false;
-    }
-    else {
-        //confirmPasswordValidationError.textContent = "";
-        confirmPasswordValidation.style.border = "2px solid green"; //Funktioniert, sollte aber besser in CSS sein
-    }
-
-    //Wenn alles richtig ist, wird die nächste Seite aufgerufen
-    if (validation == true) {
-        document.getElementById("registerForm").submit(); //Formular abschicken, von element suchen getElemtById -> submit triggern
-    }
-  }
- });
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+});
