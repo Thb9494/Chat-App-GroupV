@@ -40,8 +40,7 @@
 
     // Registrierung durchführen, wenn keine Fehler
     if (empty($usernameError) && empty($passwordError) && empty($confirmPasswordError)) {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $result = $service->register($username, $hashedPassword);
+        $result = $service->register($username, $password);
         if ($result) {
             $_SESSION['user'] = $username;
             header("Location: friends.php");
