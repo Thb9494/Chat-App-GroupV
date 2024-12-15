@@ -13,6 +13,8 @@
     $username = $password = $confirmPassword = "";
     $usernameError = $passwordError = $confirmPasswordError = "";
 
+    $service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = trim($_POST['username'] ?? '');
         $password = trim($_POST['password'] ?? '');
@@ -65,13 +67,13 @@
     <img class="roundimg" src="../images/user.png" width="100" height="100" />
     <h1>Register yourself</h1>
     <div>
-      <form id="registerForm" method="POST" action="">
-        <fieldset>
+    <form id="registerForm" method="POST" action="friends.php" onsubmit="return validateFormFields()">
+    <fieldset>
           <legend class="top-descriptor">Register</legend>
           <div class="labelandinput">
             <div>
               <label class="input-descriptor">Username</label>
-              <input name="username" id="userNameField" placeholder="Username" value="<?php echo htmlspecialchars($username); ?>"/><br />
+              <input name="username" id="userNameField" placeholder="Username" value="<?php echo htmlspecialchars($username); ?>" /><br />
               <div id="userNameFieldError" class="errorMessage"><?php echo $usernameError; ?></div>
 
               <label class="input-descriptor">Password</label>
@@ -84,7 +86,7 @@
             </div>
           </div>
         </fieldset>
-        <a href="./login.html"><button class="regular-button" type="button">Cancel</button></a>
+        <a href="./login.php"><button class="regular-button" type="button">Cancel</button></a>
         <button class="primary-action-button" id="createAccountButton" type="submit">Create Account</button>
       </form>
     </div>

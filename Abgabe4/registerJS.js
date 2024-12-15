@@ -20,20 +20,20 @@ document.addEventListener('DOMContentLoaded', function() {
         confirmPasswordField.style.border = "2px solid red";
     }
 
-    createAccountButton.addEventListener("click", validateFormFields);
+    document.getElementById("registerForm").addEventListener("submit", validateFormFields);
 
     function validateFormFields(event) {
         // Alle Fehlermeldungen zunächst zurücksetzen
         userNameError.textContent = "";
         passwordError.textContent = "";
         confirmPasswordError.textContent = "";
-
+    
         userNameField.style.border = "";
         passwordField.style.border = "";
         confirmPasswordField.style.border = "";
-
+    
         let validation = true;
-
+    
         // Nutzernamen prüfen
         if (userNameField.value.length < 3 || userNameField.value === "") {
             userNameField.style.border = "2px solid red";
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             userNameField.style.border = "2px solid green";
         }
-
+    
         // Passwort prüfen
         if (passwordField.value.length < 8 || passwordField.value === "") {
             passwordField.style.border = "2px solid red";
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             passwordField.style.border = "2px solid green";
         }
-
+    
         // Passwort-Bestätigung prüfen
         if (passwordField.value !== confirmPasswordField.value || 
             confirmPasswordField.value === "" || 
@@ -62,12 +62,12 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             confirmPasswordField.style.border = "2px solid green";
         }
-
-        // AJAX-Aufruf zur Überprüfung des Benutzernamens
+    
+        // Wenn keine Fehler, AJAX-Aufruf zur Benutzername-Überprüfung
         if (validation) {
+            event.preventDefault(); // Verhindert das sofortige Absenden des Formulars
             const xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function() {
-                console.log("AJAX-Status: " + xmlhttp.status);
+            xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState == 4) {
                     if (xmlhttp.status == 204) {
                         // Benutzername existiert bereits
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else if (xmlhttp.status == 404) {
                         // Benutzername ist verfügbar
                         userNameField.style.border = "2px solid green";
-                        document.getElementById("registerForm").submit();
+                        document.getElementById("registerForm").submit(); // Formular absenden, wenn keine Fehler
                     }
                 }
             };
@@ -87,4 +87,5 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault(); // Verhindert Formularabsendung bei Validierungsfehlern
         }
     }
+    
 });
