@@ -10,10 +10,8 @@
     <?php
     require("start.php");
 
-$username = $password = $confirmPassword = "";
-$usernameError = $passwordError = $confirmPasswordError = "";
-
-$service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
+    $username = $password = $confirmPassword = "";
+    $usernameError = $passwordError = $confirmPasswordError = "";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = trim($_POST['username'] ?? '');
@@ -42,6 +40,7 @@ $service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
 
     // Registrierung durchführen, wenn keine Fehler
     if (empty($usernameError) && empty($passwordError) && empty($confirmPasswordError)) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $result = $service->register($username, $hashedPassword);
         if ($result) {
             $_SESSION['user'] = $username;
