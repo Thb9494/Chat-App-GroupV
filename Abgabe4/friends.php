@@ -6,8 +6,6 @@ if (!isset($_SESSION["user"])) {
   exit();
 }
 
-$service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
-
 // Accept or reject friend request
 if (isset($_GET['username']) && isset($_GET['action'])) {
   $username = $_GET['username'];

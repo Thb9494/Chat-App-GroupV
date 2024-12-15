@@ -8,7 +8,6 @@ $messageObject = (object) ["msg" => "Hallo!", "to" => "Jerry"];
 $friendRequestObject = ["username" => "Jerry"];
 
 // Aufruf der Methoden
-$testResult = $service->test();
 $loginResult = $service->login("Tom", "12345678");
 $registerResult = $service->register("Müller", "12345678");
 $loadUserResult = $service->loadUser("Tom");
@@ -35,10 +34,6 @@ $getUnreadResult = $service->getUnread();
 <body>
     <h1>Backend Service Test Results</h1>
     
-    <p>
-        <strong>test():</strong> 
-        <?php var_dump($testResult); ?>
-    </p>
     <p>
         <strong>login("Tom", "12345678"):</strong> 
         <?php var_dump($loginResult); ?>
