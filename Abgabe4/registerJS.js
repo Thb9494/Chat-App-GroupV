@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function() {
     let createAccountButton = document.getElementById("createAccountButton");
     let userNameField = document.getElementById("userNameField");
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (validation) {
             const xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
+                console.log("AJAX-Status: " + xmlhttp.status);
                 if (xmlhttp.readyState == 4) {
                     if (xmlhttp.status == 204) {
                         // Benutzername existiert bereits

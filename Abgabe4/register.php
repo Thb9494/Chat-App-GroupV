@@ -13,43 +13,56 @@
 $username = $password = $confirmPassword = "";
 $usernameError = $passwordError = $confirmPasswordError = "";
 
+$service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = trim($_POST['username'] ?? '');
         $password = trim($_POST['password'] ?? '');
         $confirmPassword = trim($_POST['confirmPassword'] ?? '');
 
-        // Benutzername validieren
-        if (empty($username) || strlen($username) < 3) {
-            $usernameError = "Der Benutzername muss mindestens 3 Zeichen lang sein.";
-        } elseif ($service->userExists($username)) {
-            $usernameError = "Der Benutzername ist bereits vergeben.";
-        }
 
-        // Passwort validieren
-        if (empty($password) || strlen($password) < 8) {
-            $passwordError = "Das Passwort muss mindestens 8 Zeichen lang sein.";
-        }
+    // Nutzernamen prüfen
+    if (empty($username) || strlen($username) < 3) {
+        $usernameError = "Der Nutzername muss mindestens 3 Zeichen lang sein.";
+    } elseif ($service->userExists($username)) {
+        $usernameError = "Der Nutzername ist bereits vergeben.";
+    }
+
+    // Passwort prüfen
+    if (empty($password)) {
+        $passwordError = "Das Passwort darf nicht leer sein.";
+    } elseif (strlen($password) < 8) {
+        $passwordError = "Das Passwort muss mindestens 8 Zeichen lang sein.";
+    }
 
     // Passwort-Wiederholung prüfen
     if ($password !== $confirmPassword) {
         $confirmPasswordError = "Die Passwörter stimmen nicht überein.";
     }
 
-        // Registrierung durchführen, wenn keine Fehler vorhanden sind
-        if (empty($usernameError) && empty($passwordError) && empty($confirmPasswordError)) {
-            if ($service->register($username, $password)) {
-                session_start();
-                $_SESSION['user'] = $username;
-                header("Location: friends.php");
-                exit();
-            } else {
-                $usernameError = "Registrierung fehlgeschlagen.";
-            }
+    // Registrierung durchführen, wenn keine Fehler
+    if (empty($usernameError) && empty($passwordError) && empty($confirmPasswordError)) {
+        $result = $service->register($username, $hashedPassword);
+        if ($result) {
+            $_SESSION['user'] = $username;
+            header("Location: friends.php");
+            exit();
+        } else {
+            $usernameError = "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.";
         }
     }
-    ?>
-</head>
-<body>
+}
+?>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./registerJS.js" defer></script>
+  </head>
+  <body>
     <img class="roundimg" src="../images/user.png" width="100" height="100" />
     <h1>Register yourself</h1>
     <div>
