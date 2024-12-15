@@ -1,11 +1,38 @@
 <?php
-require("ajax_load_friends.php");
+require "start.php";
 
 if (!isset($_SESSION["user"])) {
-    header("Location: login.php");
-    exit();
+  header("Location: login.php");
+  exit();
 }
 
+$service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
+
+// Accept or reject friend request
+if (isset($_GET['username']) && isset($_GET['action'])) {
+  $username = $_GET['username'];
+  $action = $_GET['action'];
+  if ($action == "accept") {
+    $service->friendAccept($username);
+  } else if ($action == "reject") {
+    $service->friendDismiss($username);
+  }
+}
+
+// Send friend request
+if (isset($_GET['friendRequestName'])) {
+  $friendRequestName = $_GET['friendRequestName'];
+  $service->friendRequest(["username" => $friendRequestName]);
+}
+
+$users = $service->loadUsers();
+$friends = $service->loadFriends();
+$friendnames = array_map(function ($friend) {
+  return $friend->getUsername();
+}, $friends);
+$loggedInUserName = $_SESSION['user'];
+
+$filteredUser = array_diff($users, $friendnames, [$loggedInUserName]);
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +41,7 @@ if (!isset($_SESSION["user"])) {
 <head>
   <title>Friend list</title>
   <link rel="stylesheet" href="./style.css" />
-  <script src="./friends.js" language="javascript" type="text/javascript" ></script>
+  <script src="./friends.js" language="javascript" type="text/javascript"></script>
 </head>
 
 <body>
@@ -27,25 +54,27 @@ if (!isset($_SESSION["user"])) {
 
   <div class="chatfield">
     <ul id="friendlist">
+      <!-- Liste dynamisch generiert -->
     </ul>
   </div>
   <hr>
   <div>
     <h2 class="h2left">New Requests</h2>
-
     <ol id="requestlist">
+      <!-- Liste dynamisch generiert -->
     </ol>
   </div>
 
-  <input 
-    placeholder="Add Friend to List" 
-    name="friendRequestName" 
-    id="friend-request-name" 
-    list="friend-selector" 
-    type ="text"
-  >
-  <datalist id="friend-selector"></datalist>
-  <button type="button" class ="send-add-button" id="add-friend-button">Add</button>
+
+  <form action="" method="GET">
+    <input placeholder="Add Friend to List" name="friendRequestName" id="friend-request-name" list="friend-selector">
+    <datalist id="friend-selector">
+      <?php foreach ($filteredUser as $user): ?>
+        <option value="<?= $user ?>">
+      <?php endforeach; ?>
+    </datalist>
+    <button type="submit">Add</button>
+  </form>
 
   <hr>
 
