@@ -11,9 +11,8 @@ spl_autoload_register(function($class) {
 
 session_start();
 
-//Kannn weggelassen werden
-define('CHAT_SERVER_URL', 'https://online-lectures-cs.thi.de/chat/');
-define('CHAT_SERVER_ID', 'c49d4fa0-6113-4b89-ac33-ebda6d4a5e96'); 
+define('CHAT_SERVER_URL', "https://online-lectures-cs.thi.de/chat/");
+define('CHAT_SERVER_ID', "581086a3-ef94-49a8-b4bf-6acca0d0c9a5");
 
 $service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
 ?>
