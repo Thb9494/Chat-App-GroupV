@@ -17,4 +17,4 @@ session_start();
 //$service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
 
 $service = new Utils\BackendService("https://online-lectures-cs.thi.de/chat/", "581086a3-ef94-49a8-b4bf-6acca0d0c9a5");
-?
+?>
