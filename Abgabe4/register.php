@@ -21,7 +21,7 @@ $usernameError = $passwordError = $confirmPasswordError = "";
         // Benutzername validieren
         if (empty($username) || strlen($username) < 3) {
             $usernameError = "Der Benutzername muss mindestens 3 Zeichen lang sein.";
-        } elseif (BackendService::isUsernameTaken($username)) {
+        } elseif ($service->userExists($username)) {
             $usernameError = "Der Benutzername ist bereits vergeben.";
         }
 
@@ -37,7 +37,7 @@ $usernameError = $passwordError = $confirmPasswordError = "";
 
         // Registrierung durchführen, wenn keine Fehler vorhanden sind
         if (empty($usernameError) && empty($passwordError) && empty($confirmPasswordError)) {
-            if (BackendService::register($username, $password)) {
+            if ($service->register($username, $password)) {
                 session_start();
                 $_SESSION['user'] = $username;
                 header("Location: friends.php");
