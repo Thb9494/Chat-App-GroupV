@@ -1,35 +1,37 @@
-<?php
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./registerJS.js" defer></script>
 
-require("start.php");
-
-use Utils\BackendService;
-
+    <?php
+    require("start.php");
 
 $username = $password = $confirmPassword = "";
 $usernameError = $passwordError = $confirmPasswordError = "";
 
 $service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-    $confirmPassword = trim($_POST['confirmPassword']);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $username = trim($_POST['username'] ?? '');
+        $password = trim($_POST['password'] ?? '');
+        $confirmPassword = trim($_POST['confirmPassword'] ?? '');
 
 
-    
-  
+    // Nutzernamen prüfen
     if (empty($username) || strlen($username) < 3) {
-      $usernameError = "Der Nutzername muss mindestens 3 Zeichen lang sein.";
-    } else {
-      if ($service->userExists($username) == true || $service->userExists($username) == false) {
-          $usernameError = "Der Nutzername ist bereits vergeben.";
-      }
+        $usernameError = "Der Nutzername muss mindestens 3 Zeichen lang sein.";
+    } elseif (BackendService::userExists($username)) {
+        $usernameError = "Der Nutzername ist bereits vergeben.";
     }
 
     // Passwort prüfen
     if (empty($password)) {
         $passwordError = "Das Passwort darf nicht leer sein.";
-    } else if (strlen($password) < 8) {
+    } elseif (strlen($password) < 8) {
         $passwordError = "Das Passwort muss mindestens 8 Zeichen lang sein.";
     }
 
