@@ -1,8 +1,14 @@
 <?php
+
 require("start.php");
+
+use Utils\BackendService;
+
 
 $username = $password = $confirmPassword = "";
 $usernameError = $passwordError = $confirmPasswordError = "";
+
+$service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
@@ -10,17 +16,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $confirmPassword = trim($_POST['confirmPassword']);
 
 
-    // Nutzernamen prüfen
+    
+  
     if (empty($username) || strlen($username) < 3) {
-        $usernameError = "Der Nutzername muss mindestens 3 Zeichen lang sein.";
-    } elseif (BackendService::userExists($username)) {
-        $usernameError = "Der Nutzername ist bereits vergeben.";
+      $usernameError = "Der Nutzername muss mindestens 3 Zeichen lang sein.";
+    } else {
+      if ($service->userExists($username) == true || $service->userExists($username) == false) {
+          $usernameError = "Der Nutzername ist bereits vergeben.";
+      }
     }
 
     // Passwort prüfen
     if (empty($password)) {
         $passwordError = "Das Passwort darf nicht leer sein.";
-    } elseif (strlen($password) < 8) {
+    } else if (strlen($password) < 8) {
         $passwordError = "Das Passwort muss mindestens 8 Zeichen lang sein.";
     }
 
@@ -31,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Registrierung durchführen, wenn keine Fehler
     if (empty($usernameError) && empty($passwordError) && empty($confirmPasswordError)) {
-        $result = BackendService::register($username, $password);
+        $result = $service->register($username, $hashedPassword);
         if ($result) {
             $_SESSION['user'] = $username;
             header("Location: friends.php");
