@@ -281,5 +281,27 @@ class BackendService
         }
         return false;
     }
+
+    public function isUsernameTaken($username)
+    {
+        try {
+            // Versuche, den Benutzer zu finden
+            $response = HttpClient::get($this->link . "/user/" . $username);
+    
+            // Überprüfe den Statuscode der Antwort
+            if ($response->getStatusCode() === 404) {
+                // Benutzer nicht gefunden, also der Benutzername ist verfügbar
+                return false;
+            }
+    
+            // Benutzername existiert, also der Benutzername ist bereits vergeben
+            return true;
+        } catch (\Exception $e) {
+            // Logge Fehler, wenn der Request fehlschlägt
+            error_log($e);
+            // Bei Fehler gehe davon aus, dass der Benutzername bereits vergeben ist
+            return true;  // Hier kannst du auch false zurückgeben, wenn der Fehler keine Existenzbestätigung des Benutzernamens ist
+        }
+    }
 }
 ?>

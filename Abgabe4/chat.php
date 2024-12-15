@@ -18,9 +18,9 @@
 </head>
 <body>
     <h1 class="left">Chat with</h1>
-    <a href="friends.html" class="leftL"> < Back </a> |
-    <a href="profile.html" class="leftL"> Profile </a> |
-    <a href="friends.html" class="leftL critical"> Remove Friend</a>
+    <a href="friends.php" class="leftL"> < Back </a> |
+    <a href="profile.php" class="leftL"> Profile </a> |
+    <a href="friends.php" class="leftL critical"> Remove Friend</a>
     <hr>
     <div>
         <div id="message-container">

@@ -9,6 +9,7 @@
 
     <?php
     require("start.php");
+    require_once("Utils/BackendService.php");
 
     // Initialisierung der Fehlermeldungen
     $usernameError = $passwordError = $confirmPasswordError = "";
@@ -17,11 +18,11 @@
         $username = trim($_POST['username'] ?? '');
         $password = trim($_POST['password'] ?? '');
         $confirmPassword = trim($_POST['confirmPassword'] ?? '');
-
+        $BackendService = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
         // Benutzername validieren
         if (empty($username) || strlen($username) < 3) {
             $usernameError = "Der Benutzername muss mindestens 3 Zeichen lang sein.";
-        } elseif (BackendService::isUsernameTaken($username)) {
+        } elseif ($BackendService->isUsernameTaken($username)); {
             $usernameError = "Der Benutzername ist bereits vergeben.";
         }
 
@@ -37,7 +38,7 @@
 
         // Registrierung durchführen, wenn keine Fehler vorhanden sind
         if (empty($usernameError) && empty($passwordError) && empty($confirmPasswordError)) {
-            if (BackendService::register($username, $password)) {
+            if (Utils\BackendService::register($username, $password)) {
                 session_start();
                 $_SESSION['user'] = $username;
                 header("Location: friends.php");
