@@ -3,6 +3,8 @@ require "start.php";
 
 if (!isset($_SESSION['user'])) {
     http_response_code(401); // not authorized
+    header('Content-Type: application/json');
+    echo json_encode(["message" => "No user in session stored"]);
     return;
 }
 

@@ -9,19 +9,14 @@ if (!isset($_SESSION['user'])) {
 }
 
 // Backend aufrufen
-$friends = $service->loadFriends();
-if ($friends) {
+$users = $service->loadUsers();
+if ($users) {
     // erhaltene Friend-Objekte im JSON-Format senden 
-    header('Content-Type: application/json');
-    echo json_encode($friends);
-} else {
-    echo json_encode([
-        "message" => "Could not load friends, see PHP error log for details"
-    ]);
+    echo json_encode($users);
 }
 /* http status code setzen
- * - 200 Friends gesendet
+ * - 200 users gesendet
  * - 404 Fehler
  */
-http_response_code($friends ? 200 : 404);
+http_response_code($users ? 200 : 404);
 ?>

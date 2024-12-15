@@ -3,6 +3,8 @@ require "start.php";
 
 if (!isset($_GET['user'])) {
     http_response_code(400); // bad request
+    header('Content-Type: application/json');
+    echo json_encode(["message" => "Missing user in query"]);
     return;
 }
 
