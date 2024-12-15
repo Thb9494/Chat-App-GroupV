@@ -11,8 +11,10 @@ spl_autoload_register(function($class) {
 
 session_start();
 
-CHAT_SERVER_URL = "https://online-lectures-cs.thi.de/chat/";
-CHAT_SERVER_ID = "581086a3-ef94-49a8-b4bf-6acca0d0c9a5";
+//CHAT_SERVER_URL = "https://online-lectures-cs.thi.de/chat/";
+//CHAT_SERVER_ID = "581086a3-ef94-49a8-b4bf-6acca0d0c9a5";
 
-$service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
+//$service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
+
+$service = new Utils\BackendService("https://online-lectures-cs.thi.de/chat/", "581086a3-ef94-49a8-b4bf-6acca0d0c9a5");
 ?

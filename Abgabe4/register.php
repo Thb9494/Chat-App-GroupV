@@ -50,6 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./style.css" />
     <script src="./registerJS.js" defer></script>
+    <?php require("start.php"); ?>
   </head>
   <body>
     <img class="roundimg" src="../images/user.png" width="100" height="100" />
