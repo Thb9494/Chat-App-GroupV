@@ -209,7 +209,7 @@ input {
     display: inline;
 }
 .timestamp {
-    color: lightgray;
+    color: black;
     float: right;
 
 }
@@ -251,8 +251,7 @@ ul li:hover{
     overflow-y: auto;
     margin-bottom: 10px;
     padding: 5px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
+   
 }
 
 #message-container {

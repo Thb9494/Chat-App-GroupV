@@ -107,8 +107,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <hr>
         <div class="chat">
             <form id="message-form" method="POST" >
-                <input type="text" class="chatinput" id="message-input" placeholder="Nachricht eingeben..." required>
-                <button type="submit" class="send-add-button" id="send-button">Senden</button>
+                <input type="text" class="chatinput" id="message-input" placeholder="New Message" required>
+                <button type="submit" class="send-add-button" id="send-button">Send</button>
             </form>
         </div>
     <?php endif; ?>

@@ -6,7 +6,7 @@ $username = $password = $confirmPassword = "";
 $usernameError = $passwordError = $confirmPasswordError = "";
 
 // Instanz des BackendService erstellen
-$service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
+$service = new Utils\BackendService("https://online-lectures-cs.thi.de/chat/", "c49d4fa0-6113-4b89-ac33-ebda6d4a5e96");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username'] ?? '');

@@ -21,53 +21,53 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displaySentMessage(message) {
         if (!sentMessagesContainer) return;
-
-        // Aktuelle Zeit formatieren
+    
+        // Überprüfen, ob die Nachricht bereits angezeigt wurde
+        const messageKey = `${currentUser}:${message}:${new Date().toISOString()}`; // Beispiel für einen eindeutigen Schlüssel
+        if (displayedMessages.has(messageKey)) return;
+        displayedMessages.add(messageKey);
+    
+        // Nachricht erstellen und anzeigen
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, '0');
         const minutes = now.getMinutes().toString().padStart(2, '0');
         const seconds = now.getSeconds().toString().padStart(2, '0');
         const timeString = `${hours}:${minutes}:${seconds}`;
-
-        // Neue Nachricht erstellen
+    
         const messageElement = document.createElement('div');
         messageElement.className = 'sent-message';
-
+    
         const messageText = document.createElement('span');
         messageText.className = 'chattext';
         messageText.textContent = `${currentUser}: ${message}`;
-
+    
         const messageTime = document.createElement('span');
         messageTime.className = 'chattext timestamp';
         messageTime.textContent = timeString;
-
+    
         messageElement.appendChild(messageText);
         messageElement.appendChild(messageTime);
-
-        // Nachricht zum Container hinzufügen
+    
         sentMessagesContainer.appendChild(messageElement);
-
-        // Optional: Automatisch zum neuesten Eintrag scrollen
         sentMessagesContainer.scrollTop = sentMessagesContainer.scrollHeight;
     }
+    
+    
 
     function sendMessage(message) {
         const chatPartner = getChatpartner();
-
-        // URL-kodierte Formulardaten für die Nachricht
+    
         const formData = new URLSearchParams();
-        formData.append("msg", message); // Nachricht
-        formData.append("to", chatPartner); // Empfänger
-
-        // Nachricht an den Server senden
+        formData.append("msg", message);
+        formData.append("to", chatPartner);
+    
         fetch("chat.php", {
             method: "POST",
-            body: formData, // Formulardaten senden
+            body: formData,
         })
             .then(response => {
                 if (response.ok) {
-                    displaySentMessage(message); // Zeige die gesendete Nachricht sofort im UI an
-                    loadMessages(); // Nachrichtenliste aktualisieren
+                    displaySentMessage(message); // Lokale Nachricht anzeigen
                 } else {
                     throw new Error(`Fehler beim Senden der Nachricht: ${response.status}`);
                 }
@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error("Fehler beim Senden der Nachricht:", error);
             });
     }
+    
 
     function getChatpartner() {
         const url = new URL(window.location.href);
@@ -96,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function loadMessages() {
         const chatPartner = getChatpartner();
-
+    
         fetch(`ajax_load_messages.php?to=${encodeURIComponent(chatPartner)}`)
             .then(response => {
                 if (!response.ok) {
@@ -111,33 +112,58 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error("Fehler beim Laden der Nachrichten:", error);
             });
     }
+    
+    
 
-    function displayMessages(messages) {
-        const messageContainer = document.getElementById("sent-messages-container");
-        if (!messageContainer) return;
+    const displayedMessages = new Set(); // Set für bereits angezeigte Nachrichten
 
-        // Bestehende Nachrichten entfernen
-        messageContainer.innerHTML = "";
+function displayMessages(messages) {
+    const messageContainer = document.getElementById("sent-messages-container");
+    if (!messageContainer) return;
 
-        // Neue Nachrichten hinzufügen
-        messages.forEach(message => {
+    messages.forEach(message => {
+        // Einzigartigkeit prüfen: Kombination aus Absender, Inhalt und Zeit
+        const messageKey = `${message.from}:${message.msg}:${message.time}`;
+
+        // Nachricht nur anzeigen, wenn sie nicht bereits im Set gespeichert ist
+        if (!displayedMessages.has(messageKey)) {
+            displayedMessages.add(messageKey); // Nachricht dem Set hinzufügen
+
             const messageElement = document.createElement("div");
             messageElement.className = "message";
-            messageElement.textContent = `${message.from}: "${message.msg}"`;
-            messageContainer.appendChild(messageElement);
-        });
 
-        // Automatisches Scrollen zum neuesten Eintrag
-        messageContainer.scrollTop = messageContainer.scrollHeight;
-    }
+            const fromElement = document.createElement("span");
+            fromElement.className = "from";
+            fromElement.textContent = `${message.from}:`;
+
+            const msgElement = document.createElement("span");
+            msgElement.className = "msg";
+            msgElement.textContent = `"${message.msg}"`;
+
+            const timeElement = document.createElement("span");
+            timeElement.className = "time";
+            timeElement.textContent = ` (${message.time})`;
+
+            // Elemente zusammenfügen
+            messageElement.appendChild(fromElement);
+            messageElement.appendChild(msgElement);
+            messageElement.appendChild(timeElement);
+
+            // Nachricht hinzufügen
+            messageContainer.appendChild(messageElement);
+        }
+    });
+
+    // Automatisches Scrollen zum neuesten Eintrag
+    messageContainer.scrollTop = messageContainer.scrollHeight;
+}
+
+
 
     // Initialisierung der Chatfunktionalität
     function initializeChat() {
         updateChatHeader(); // Header aktualisieren
         loadMessages(); // Nachrichten laden
-
-        // Alle 3 Sekunden Nachrichten aktualisieren
-        setInterval(loadMessages, 3000);
 
         // Sende-Event mit dem Formular verbinden
         const form = document.getElementById("message-form");
