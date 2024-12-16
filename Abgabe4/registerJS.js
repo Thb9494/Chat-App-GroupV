@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     let createAccountButton = document.getElementById("createAccountButton");
     let userNameField = document.getElementById("userNameField");
@@ -87,5 +86,4 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault(); // Verhindert Formularabsendung bei Validierungsfehlern
         }
     }
-    
 });

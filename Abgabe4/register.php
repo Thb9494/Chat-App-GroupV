@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
-    <link rel="stylesheet" href="./style.css" />
-    <script src="./registerJS.js" defer></script>
-    <?php
-    require("start.php");
+<?php
+require("start.php");
 
-    $username = $password = $confirmPassword = "";
-    $usernameError = $passwordError = $confirmPasswordError = "";
+$username = $password = $confirmPassword = "";
+$usernameError = $passwordError = $confirmPasswordError = "";
 
-    $service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
+$service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = trim($_POST['username'] ?? '');
-        $password = trim($_POST['password'] ?? '');
-        $confirmPassword = trim($_POST['confirmPassword'] ?? '');
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = trim($_POST['username'] ?? '');
+    $password = trim($_POST['password'] ?? '');
+    $confirmPassword = trim($_POST['confirmPassword'] ?? '');
 
 
     // Nutzernamen prüfen
@@ -54,18 +46,19 @@
 ?>
 
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
-    <meta charset="UTF-8" />
     <link rel="stylesheet" href="./style.css" />
     <script src="./registerJS.js" defer></script>
-  </head>
-  <body>
+</head>
+<body>
     <img class="roundimg" src="../images/user.png" width="100" height="100" />
     <h1>Register yourself</h1>
     <div>
-    <form id="registerForm" method="POST" action="friends.php" onsubmit="return validateFormFields()">
+    <form id="registerForm" method="POST" action="" onsubmit="return validateFormFields()">
     <fieldset>
           <legend class="top-descriptor">Register</legend>
           <div class="labelandinput">
@@ -88,5 +81,5 @@
         <button class="primary-action-button" id="createAccountButton" type="submit">Create Account</button>
       </form>
     </div>
-  </body>
+</body>
 </html>
