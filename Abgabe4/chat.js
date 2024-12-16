@@ -66,10 +66,29 @@ function displaySentMessage(message) {
     const sentMessagesContainer = document.getElementById("sent-messages-container");
     if (!sentMessagesContainer) return;
 
+
+    // Aktuelle Zeit formatieren
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const timeString = `${hours}:${minutes}:${seconds}`;
+
     // Neue Nachricht erstellen
     const messageElement = document.createElement("div");
     messageElement.className = "sent-message";
-    messageElement.textContent = `${username}: "${message}"`;
+
+    const messageText = document.createElement("span");
+    messageText.className = "chattext";
+    messageText.textContent = `${currentUser}: ${message}`;
+
+    const messageTime = document.createElement("span");
+    messageTime.className = "chattext timestamp";
+    messageTime.textContent = timeString;
+
+    messageElement.appendChild(messageText);
+    messageElement.appendChild(messageTime);
+
 
     // Nachricht zum Container hinzufügen
     sentMessagesContainer.appendChild(messageElement);
@@ -91,6 +110,9 @@ function sendMessage(event) {
         return;
     }
 
+    // Eingabefeld direkt leeren
+    messageInput.value = "";
+
     // Zeige die gesendete Nachricht sofort im UI an
     displaySentMessage(message);
 
@@ -103,17 +125,17 @@ function sendMessage(event) {
         method: "POST",
         body: formData,
     })
-    .then(response => {
-        if (response.ok) {
-            messageInput.value = ""; // Eingabefeld leeren
-            loadMessages(); // Nachrichtenliste aktualisieren
-        } else {
-            throw new Error(`Fehler beim Senden der Nachricht: ${response.status}`);
-        }
-    })
-    .catch(error => {
-        console.error("Fehler beim Senden der Nachricht:", error);
-    });
+        .then(response => {
+            if (response.ok) {
+                messageInput.value = ""; // Eingabefeld leeren
+                loadMessages(); // Nachrichtenliste aktualisieren
+            } else {
+                throw new Error(`Fehler beim Senden der Nachricht: ${response.status}`);
+            }
+        })
+        .catch(error => {
+            console.error("Fehler beim Senden der Nachricht:", error);
+        });
 }
 
 // Initialisierung der Chatfunktionalität

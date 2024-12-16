@@ -255,14 +255,6 @@ ul li:hover{
     background-color: #f9f9f9;
 }
 
-.sent-message {
-    background-color: #e1f7d5; /* Helle grüne Farbe für gesendete Nachrichten */
-    padding: 5px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
 #message-container {
     max-height: 300px;
     overflow-y: auto;
@@ -283,16 +275,4 @@ ul li:hover{
 #chat-form input[type="text"] {
     width: 80%;
     padding: 8px;
-}
-
-#send-button {
-    padding: 8px 15px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-#send-button:hover {
-    background-color: #45a049;
 }

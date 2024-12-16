@@ -6,7 +6,6 @@
     <title>Chat</title>
     <link rel="stylesheet" href="./style.css" />
     <script src="./registerJS.js" defer></script>
-
     <?php
     require("start.php");
 
