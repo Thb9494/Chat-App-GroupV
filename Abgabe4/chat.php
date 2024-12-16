@@ -9,6 +9,36 @@ if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
 
 require("start.php"); 
 $user = $_SESSION['user']; // Angemeldeten Nutzer aus der Session holen
+$service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
+
+
+// Prüfen, ob ein Freund entfernt werden soll
+if (isset($_GET['action']) && $_GET['action'] === 'remove_friend') {
+    $friendToRemove = htmlspecialchars($_GET['friend'] ?? '');
+
+    if (!empty($friendToRemove)) {
+        // BackendService: removeFriend aufrufen
+        try {
+            if ($service->removeFriend($friendToRemove)) {
+                // Erfolg: Weiterleitung zur Freundesliste
+                header("Location: friends.php?message=Freund wurde erfolgreich entfernt");
+                exit();
+            } else {
+                // Fehler beim Entfernen
+                header("Location: chat.php?friend=" . urlencode($friendToRemove) . "&error=Fehler beim Entfernen des Freundes");
+                exit();
+            }
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            header("Location: chat.php?friend=" . urlencode($friendToRemove) . "&error=Ein Fehler ist aufgetreten");
+            exit();
+        }
+    } else {
+        // Kein Freund angegeben
+        header("Location: chat.php?error=Kein Freund angegeben");
+        exit();
+    }
+}
 
 
 $chatPartner = htmlspecialchars($_GET['friend'] ?? ''); // Freund aus der URL holen
@@ -50,8 +80,7 @@ if (empty($chatPartner)) {
     <?php else: ?>
         <a href="friends.php" class="leftL">&lt; Zurück zur Freundesliste</a> |
         <a href="profile.php" class="leftL">Profil</a> |
-        <a href="remove_friend.php?friend=<?php echo urlencode($chatPartner); ?>" class="leftL critical">Freund
-            entfernen</a>
+        <a href="chat.php?action=remove_friend&friend=<?php echo urlencode($chatPartner); ?>" class="leftL critical">Freund entfernen</a>
         <hr>
 
         <div>
