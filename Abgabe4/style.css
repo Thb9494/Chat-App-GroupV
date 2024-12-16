@@ -243,3 +243,56 @@ ul li:hover{
     color: white;
     
 }
+
+
+/* Chat */
+#sent-messages-container {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.sent-message {
+    background-color: #e1f7d5; /* Helle grüne Farbe für gesendete Nachrichten */
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#message-container {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.message {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.chat {
+    margin-top: 10px;
+}
+
+#chat-form input[type="text"] {
+    width: 80%;
+    padding: 8px;
+}
+
+#send-button {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#send-button:hover {
+    background-color: #45a049;
+}
