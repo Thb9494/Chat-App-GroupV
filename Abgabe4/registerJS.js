@@ -65,9 +65,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Wenn keine Fehler, AJAX-Aufruf zur Benutzername-Überprüfung
         if (validation) {
             event.preventDefault(); // Verhindert das sofortige Absenden des Formulars
+
             const xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState == 4) {
+                    console.log("Statuscode:", xmlhttp.status);  // Debugging: Logge den Statuscode
+                    console.log("Antworttext:", xmlhttp.responseText);  // Debugging: Logge die Antwort des Servers
+                    
                     if (xmlhttp.status == 204) {
                         // Benutzername existiert bereits
                         userNameField.style.border = "2px solid red";
@@ -76,10 +80,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else if (xmlhttp.status == 404) {
                         // Benutzername ist verfügbar
                         userNameField.style.border = "2px solid green";
-                        document.getElementById("registerForm").submit(); // Formular absenden, wenn keine Fehler
+                        document.getElementById("registerForm").submit(); // Formular absenden
+                    } else {
+                        // Bei anderen Statuscodes, zeige allgemeine Fehlermeldung
+                        userNameField.style.border = "2px solid red";
+                        userNameError.textContent = "Es gab ein Problem bei der Überprüfung des Benutzernamens. Bitte versuchen Sie es später.";
+                        validation = false;
                     }
                 }
             };
+
             xmlhttp.open("GET", "ajax_check_user.php?user=" + encodeURIComponent(userNameField.value), true);
             xmlhttp.send();
         } else {

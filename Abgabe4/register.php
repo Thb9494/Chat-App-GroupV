@@ -1,16 +1,17 @@
 <?php
 require("start.php");
 
+// Initialisiere Variablen
 $username = $password = $confirmPassword = "";
 $usernameError = $passwordError = $confirmPasswordError = "";
 
+// Instanz des BackendService erstellen
 $service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
     $confirmPassword = trim($_POST['confirmPassword'] ?? '');
-
 
     // Nutzernamen prüfen
     if (empty($username) || strlen($username) < 3) {
@@ -33,12 +34,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Registrierung durchführen, wenn keine Fehler
     if (empty($usernameError) && empty($passwordError) && empty($confirmPasswordError)) {
+        // Benutzer registrieren
         $result = $service->register($username, $password);
+        
         if ($result) {
-            $_SESSION['user'] = $username;
-            header("Location: friends.php");
-            exit();
+            // Speichere das Benutzerobjekt, nachdem die Registrierung erfolgreich war
+            $user = $service->loadUser($username);
+            if ($user) {
+                $saveResult = $service->saveUser($user);
+                if ($saveResult) {
+                    // Erfolgreiche Speicherung der Benutzerdaten
+                    $_SESSION['user'] = $username;
+                    header("Location: friends.php");
+                    exit();
+                } else {
+                    // Fehler beim Speichern der Benutzerdaten
+                    $usernameError = "Fehler beim Speichern des Benutzers. Bitte versuchen Sie es erneut.";
+                }
+            } else {
+                $usernameError = "Fehler beim Laden der Benutzerdaten. Bitte versuchen Sie es erneut.";
+            }
         } else {
+            // Fehler bei der Registrierung
             $usernameError = "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.";
         }
     }
@@ -56,30 +73,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <img class="roundimg" src="../images/user.png" width="100" height="100" />
-    <h1>Register yourself</h1>
+    <h1>Registriere dich</h1>
     <div>
-    <form id="registerForm" method="POST" action="" onsubmit="return validateFormFields()">
-    <fieldset>
-          <legend class="top-descriptor">Register</legend>
-          <div class="labelandinput">
-            <div>
-              <label class="input-descriptor">Username</label>
-              <input name="username" id="userNameField" placeholder="Username" value="<?php echo htmlspecialchars($username); ?>" /><br />
-              <div id="userNameFieldError" class="errorMessage"><?php echo $usernameError; ?></div>
+        <form id="registerForm" method="POST" action="" onsubmit="return validateFormFields()">
+            <fieldset>
+                <legend class="top-descriptor">Registriere dich</legend>
+                <div class="labelandinput">
+                    <div>
+                        <label class="input-descriptor">Benutzername</label>
+                        <input name="username" id="userNameField" placeholder="Benutzername" value="<?php echo htmlspecialchars($username); ?>" /><br />
+                        <div id="userNameFieldError" class="errorMessage"><?php echo $usernameError; ?></div>
 
-              <label class="input-descriptor">Password</label>
-              <input name="password" id="passwordField" type="password" placeholder="Password" /><br />
-              <div id="passwordFieldError" class="errorMessage"><?php echo $passwordError; ?></div>
+                        <label class="input-descriptor">Passwort</label>
+                        <input name="password" id="passwordField" type="password" placeholder="Passwort" /><br />
+                        <div id="passwordFieldError" class="errorMessage"><?php echo $passwordError; ?></div>
 
-              <label class="input-descriptor">Confirm Password</label>
-              <input name="confirmPassword" id="confirmPasswordField" type="password" placeholder="Confirm Password" /><br />
-              <div id="confirmPasswordFieldError" class="errorMessage"><?php echo $confirmPasswordError; ?></div>
-            </div>
-          </div>
-        </fieldset>
-        <a href="./login.php"><button class="regular-button" type="button">Cancel</button></a>
-        <button class="primary-action-button" id="createAccountButton" type="submit">Create Account</button>
-      </form>
+                        <label class="input-descriptor">Passwort bestätigen</label>
+                        <input name="confirmPassword" id="confirmPasswordField" type="password" placeholder="Passwort bestätigen" /><br />
+                        <div id="confirmPasswordFieldError" class="errorMessage"><?php echo $confirmPasswordError; ?></div>
+                    </div>
+                </div>
+            </fieldset>
+            <a href="./login.php"><button class="regular-button" type="button">Abbrechen</button></a>
+            <button class="primary-action-button" id="createAccountButton" type="submit">Konto erstellen</button>
+        </form>
     </div>
 </body>
 </html>
