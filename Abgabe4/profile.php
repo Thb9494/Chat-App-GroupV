@@ -1,23 +1,20 @@
 <?php
 require("start.php");
 
-// Check if user is logged in
+
 if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
     header("Location: login.php");
     exit();
 }
 
-// Get profile username from URL parameter - now using 'friend' to match chat.php
-$profileUsername = $_GET['friend'] ?? $_SESSION['user']; // Default to own profile if no friend specified
+$profileUsername = $_GET['friend'] ?? $_SESSION['user']; 
 
 try {
-    // Load user profile
     $profileUser = $service->loadUser($profileUsername);
     if (!$profileUser) {
         throw new Exception("User not found");
     }
 
-    // Check if viewing user is a friend (only if viewing someone else's profile)
     $isFriend = false;
     if ($profileUsername !== $_SESSION['user']) {
         $friends = $service->loadFriends();
@@ -29,7 +26,6 @@ try {
         }
     }
 } catch (Exception $e) {
-    // Log error but don't expose details to user
     error_log($e->getMessage());
     header("Location: friends.php");
     exit();

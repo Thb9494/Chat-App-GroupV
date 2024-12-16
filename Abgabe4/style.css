@@ -245,7 +245,7 @@ ul li:hover{
 }
 
 
-/* Chat */
+
 #sent-messages-container {
     max-height: 200px;
     overflow-y: auto;
@@ -276,7 +276,7 @@ ul li:hover{
     padding: 8px;
 }
 
-/* Settings Page */
+
 .settings-container {
     margin: 20px auto;
     padding: 20px;
@@ -320,7 +320,7 @@ ul li:hover{
     margin: 10px 5px;
 }
 
-/* Profile Page */
+
 .profile-container {
     margin: 20px auto;
     padding: 20px;

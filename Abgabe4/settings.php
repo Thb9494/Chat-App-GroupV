@@ -1,16 +1,13 @@
 <?php
 require("start.php");
 
-// Check if user is logged in
 if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
     header("Location: login.php");
     exit();
 }
 
-// Load current user data
 $currentUser = $service->loadUser($_SESSION['user']);
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = new Model\User($_SESSION['user']);
     $user->setFirstName(htmlspecialchars($_POST['firstName'] ?? ''));
@@ -18,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user->setCoffeeOrTea(htmlspecialchars($_POST['beverages'] ?? ''));
     $user->setDescription(htmlspecialchars($_POST['description'] ?? ''));
     $user->setChatLayout(htmlspecialchars($_POST['chatLayout'] ?? ''));
-    $user->addToHistory(); // Add timestamp to change history
+    $user->addToHistory(); 
 
     if ($service->saveUser($user)) {
         header("Location: friends.php");
