@@ -275,3 +275,84 @@ ul li:hover{
     width: 80%;
     padding: 8px;
 }
+
+/* Settings Page */
+.settings-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.settings-container fieldset {
+    margin-bottom: 20px;
+}
+
+.settings-container legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.settings-container .field {
+    margin-bottom: 15px;
+}
+
+.settings-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.settings-container input,
+.settings-container select,
+.settings-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.settings-container .primary-action-button,
+.settings-container .regular-button {
+    width: auto;
+    margin: 10px 5px;
+}
+
+/* Profile Page */
+.profile-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container img {
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+}
+
+.profile-container fieldset {
+    margin-bottom: 20px;
+}
+
+.profile-container p {
+    margin-bottom: 10px;
+}
+
+.profile-container .profileanswers {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.profile-container .remove-friend {
+    color: #D2122E;
+    font-weight: bold;
+}
+
+.profile-container .remove-friend:hover {
+    text-decoration: underline;
+}
