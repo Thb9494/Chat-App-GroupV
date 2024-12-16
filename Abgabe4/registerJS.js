@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+
     let createAccountButton = document.getElementById("createAccountButton");
     let userNameField = document.getElementById("userNameField");
     let passwordField = document.getElementById("passwordField");
@@ -8,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let passwordError = document.getElementById("passwordFieldError");
     let confirmPasswordError = document.getElementById("confirmPasswordFieldError");
 
-    // Initialer Check: Zeige PHP-Fehlermeldungen
+    //Zeige PHP-Fehlermeldungen
     if (userNameError.textContent.trim() !== "") {
         userNameField.style.border = "2px solid red";
     }
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("registerForm").addEventListener("submit", validateFormFields);
 
     function validateFormFields(event) {
-        // Alle Fehlermeldungen zunächst zurücksetzen
+        // Alle Fehlermeldungen zurücksetzen
         userNameError.textContent = "";
         passwordError.textContent = "";
         confirmPasswordError.textContent = "";
@@ -62,27 +63,24 @@ document.addEventListener('DOMContentLoaded', function() {
             confirmPasswordField.style.border = "2px solid green";
         }
     
-        // Wenn keine Fehler, AJAX-Aufruf zur Benutzername-Überprüfung
+        //AJAX-Aufruf zur Benutzername-Überprüfung
         if (validation) {
             event.preventDefault(); // Verhindert das sofortige Absenden des Formulars
 
             const xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState == 4) {
-                    console.log("Statuscode:", xmlhttp.status);  // Debugging: Logge den Statuscode
-                    console.log("Antworttext:", xmlhttp.responseText);  // Debugging: Logge die Antwort des Servers
+                    console.log("Statuscode:", xmlhttp.status); 
+                    console.log("Antworttext:", xmlhttp.responseText);
                     
                     if (xmlhttp.status == 204) {
-                        // Benutzername existiert bereits
                         userNameField.style.border = "2px solid red";
                         userNameError.textContent = "Der Nutzername ist bereits vergeben.";
                         validation = false;
                     } else if (xmlhttp.status == 404) {
-                        // Benutzername ist verfügbar
                         userNameField.style.border = "2px solid green";
                         document.getElementById("registerForm").submit(); // Formular absenden
                     } else {
-                        // Bei anderen Statuscodes, zeige allgemeine Fehlermeldung
                         userNameField.style.border = "2px solid red";
                         userNameError.textContent = "Es gab ein Problem bei der Überprüfung des Benutzernamens. Bitte versuchen Sie es später.";
                         validation = false;

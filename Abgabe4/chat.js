@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const messageInput = document.getElementById('message-input');
     const sentMessagesContainer = document.getElementById('sent-messages-container');
 
-    // Entfernen Sie alle vorherigen Event-Listener, um sicherzustellen, dass der Event-Listener nur einmal hinzugefügt wird
+    // Entfernen der vorherigen Event-Listener, um Mehrfachsendungen zu verhindern
     messageForm.removeEventListener('submit', handleFormSubmit);
     messageForm.addEventListener('submit', handleFormSubmit);
 
     function handleFormSubmit(event) {
-        event.preventDefault(); // Verhindert das Standard-Formularverhalten
+        event.preventDefault();
 
         const message = messageInput.value.trim();
         if (message) {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!sentMessagesContainer) return;
     
         // Überprüfen, ob die Nachricht bereits angezeigt wurde
-        const messageKey = `${currentUser}:${message}:${new Date().toISOString()}`; // Beispiel für einen eindeutigen Schlüssel
+        const messageKey = `${currentUser}:${message}:${new Date().toISOString()}`;
         if (displayedMessages.has(messageKey)) return;
         displayedMessages.add(messageKey);
     
@@ -52,8 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
         sentMessagesContainer.scrollTop = sentMessagesContainer.scrollHeight;
     }
     
-    
-
     function sendMessage(message) {
         const chatPartner = getChatpartner();
     
@@ -67,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
             .then(response => {
                 if (response.ok) {
-                    displaySentMessage(message); // Lokale Nachricht anzeigen
+                    displaySentMessage(message);
                 } else {
                     throw new Error(`Fehler beim Senden der Nachricht: ${response.status}`);
                 }
@@ -77,12 +75,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
     
-
     function getChatpartner() {
         const url = new URL(window.location.href);
-        const friend = url.searchParams.get("friend"); // Parameter "friend"
+        const friend = url.searchParams.get("friend");
         if (!friend) {
-            window.location.href = "friends.php"; // Redirect zu Freundesliste
+            window.location.href = "friends.php";
         }
         return friend;
     }
@@ -91,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const chatPartner = getChatpartner();
         const headerElement = document.querySelector("h1");
         if (headerElement && chatPartner) {
-            headerElement.textContent = `Chat mit ${chatPartner}`;
+            headerElement.textContent = `Chat with ${chatPartner}`;
         }
     }
 
@@ -113,21 +110,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
     
-    
-
-    const displayedMessages = new Set(); // Set für bereits angezeigte Nachrichten
+    const displayedMessages = new Set();
 
 function displayMessages(messages) {
     const messageContainer = document.getElementById("sent-messages-container");
     if (!messageContainer) return;
 
     messages.forEach(message => {
-        // Einzigartigkeit prüfen: Kombination aus Absender, Inhalt und Zeit
+
         const messageKey = `${message.from}:${message.msg}:${message.time}`;
 
-        // Nachricht nur anzeigen, wenn sie nicht bereits im Set gespeichert ist
+        
         if (!displayedMessages.has(messageKey)) {
-            displayedMessages.add(messageKey); // Nachricht dem Set hinzufügen
+            displayedMessages.add(messageKey); 
 
             const messageElement = document.createElement("div");
             messageElement.className = "message";
@@ -157,8 +152,6 @@ function displayMessages(messages) {
     // Automatisches Scrollen zum neuesten Eintrag
     messageContainer.scrollTop = messageContainer.scrollHeight;
 }
-
-
 
     // Initialisierung der Chatfunktionalität
     function initializeChat() {

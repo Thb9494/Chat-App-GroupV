@@ -1,4 +1,5 @@
 <?php
+
 require("start.php");
 
 // Initialisiere Variablen
@@ -32,13 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $confirmPasswordError = "Die Passwörter stimmen nicht überein.";
     }
 
-    // Registrierung durchführen, wenn keine Fehler
+    // Registrierung durchführen
     if (empty($usernameError) && empty($passwordError) && empty($confirmPasswordError)) {
         // Benutzer registrieren
         $result = $service->register($username, $password);
         
         if ($result) {
-            // Speichere das Benutzerobjekt, nachdem die Registrierung erfolgreich war
+            // Speichern der Benutzerdaten
             $user = $service->loadUser($username);
             if ($user) {
                 $saveResult = $service->saveUser($user);
@@ -52,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $usernameError = "Fehler beim Speichern des Benutzers. Bitte versuchen Sie es erneut.";
                 }
             } else {
+                // Fehler beim Laden der Benutzerdaten
                 $usernameError = "Fehler beim Laden der Benutzerdaten. Bitte versuchen Sie es erneut.";
             }
         } else {
@@ -77,25 +79,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div>
         <form id="registerForm" method="POST" action="" onsubmit="return validateFormFields()">
             <fieldset>
-                <legend class="top-descriptor">Registriere dich</legend>
+                <legend class="top-descriptor">Register yourself</legend>
                 <div class="labelandinput">
                     <div>
-                        <label class="input-descriptor">Benutzername</label>
+                        <label class="input-descriptor">Username</label>
                         <input name="username" id="userNameField" placeholder="Benutzername" value="<?php echo htmlspecialchars($username); ?>" /><br />
                         <div id="userNameFieldError" class="errorMessage"><?php echo $usernameError; ?></div>
 
-                        <label class="input-descriptor">Passwort</label>
+                        <label class="input-descriptor">Password</label>
                         <input name="password" id="passwordField" type="password" placeholder="Passwort" /><br />
                         <div id="passwordFieldError" class="errorMessage"><?php echo $passwordError; ?></div>
 
-                        <label class="input-descriptor">Passwort bestätigen</label>
+                        <label class="input-descriptor">Confirm Password</label>
                         <input name="confirmPassword" id="confirmPasswordField" type="password" placeholder="Passwort bestätigen" /><br />
                         <div id="confirmPasswordFieldError" class="errorMessage"><?php echo $confirmPasswordError; ?></div>
                     </div>
                 </div>
             </fieldset>
-            <a href="./login.php"><button class="regular-button" type="button">Abbrechen</button></a>
-            <button class="primary-action-button" id="createAccountButton" type="submit">Konto erstellen</button>
+            <a href="./login.php"><button class="regular-button" type="button">Cancel</button></a>
+            <button class="primary-action-button" id="createAccountButton" type="submit">Create Account</button>
         </form>
     </div>
 </body>

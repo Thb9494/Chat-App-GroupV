@@ -1,5 +1,7 @@
 <?php
+
 require("start.php");
+
 // Prüfen, ob der Nutzer angemeldet ist
 if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
     header("Location: login.php");
@@ -15,14 +17,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'remove_friend') {
     $friendToRemove = htmlspecialchars($_GET['friend'] ?? '');
 
     if (!empty($friendToRemove)) {
-        // BackendService: removeFriend aufrufen
         try {
             if ($service->removeFriend($friendToRemove)) {
-                // Erfolg: Weiterleitung zur Freundesliste
                 header("Location: friends.php?message=Freund wurde erfolgreich entfernt");
                 exit();
             } else {
-                // Fehler beim Entfernen
                 header("Location: chat.php?friend=" . urlencode($friendToRemove) . "&error=Fehler beim Entfernen des Freundes");
                 exit();
             }
@@ -32,13 +31,11 @@ if (isset($_GET['action']) && $_GET['action'] === 'remove_friend') {
             exit();
         }
     } else {
-        // Kein Freund angegeben
         header("Location: chat.php?error=Kein Freund angegeben");
         exit();
     }
 }
 
-// Wenn kein Freund angegeben ist, kann eine Nachricht oder die Freundesliste angezeigt werden
 if (empty($chatPartner)) {
     $message = "Wähle einen Freund aus, um zu chatten.";
 } else {
@@ -79,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="style.css">
     <script src="chat.js" defer></script>
     <script>
-        // Übergeben Sie den Namen des aktuell eingeloggten Nutzers an das JavaScript
         const currentUser = "<?php echo htmlspecialchars($user); ?>";
     </script>
 </head>
@@ -89,7 +85,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <?php if (empty($chatPartner)): ?>
         <div>
             <h2>Freunde</h2>
-            <!-- Freundesliste oder Nachricht anzeigen -->
         </div>
         <?php else: ?>
         <div class="navbar">
