@@ -38,3 +38,8 @@ Bitte Chat-Link so benennen: a.setAttribute("href", "chat.html?friend=" + friend
    Vincent: Nutzerprofil Einstellungen und Ansicht
    Zusammen: Default, User-Klassen, Einarbeitung in BackendService
    
+
+Aufgabe 5:
+   Theresa: 
+   Vincent:
+   Tomke:
