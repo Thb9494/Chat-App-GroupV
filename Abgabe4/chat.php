@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="navbar">
         <a href="friends.php" class="leftL">&lt; Back</a> |
         <a href="profile.php" class="leftL">Profil</a> |
-        <a href="chat.php?action=remove_friend&friend=<?php echo urlencode($chatPartner); ?>" class="remove-friend">Remove Friends</a>
+        <a href="chat.php?action=remove_friend&friend=<?php echo urlencode($chatPartner); ?>" class="remove-friend">Remove Friend</a>
         </div>
         <hr>
 
@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="chat">
             <form id="message-form" method="POST" >
                 <input type="text" class="chatinput" id="message-input" placeholder="New Message" required>
-                <button type="submit" class="send-add-button" id="send-button">Send</button>
+                <button type="submit" class="send-add-button" id="send-button" >Send</button>
             </form>
         </div>
     <?php endif; ?>
