@@ -40,6 +40,6 @@ Bitte Chat-Link so benennen: a.setAttribute("href", "chat.html?friend=" + friend
    
 
 Aufgabe 5:
-   Theresa: 
-   Vincent:
-   Tomke:
+   Theresa: Login, Logout und Freundesliste
+   Vincent: Nutzerprofil-Einstellungen und Chat-Ansicht
+   Tomke: Registrieren und Nutzerprofilansicht
