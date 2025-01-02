@@ -32,25 +32,28 @@ if ($service->login($username, $password)) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 
-<body>
-    <img class="roundimg" src="../images/chat.png" width="100" height="100" />
-    <h1>Please sign in</h1>
-    <form action="" method="post">
-        <fieldset>
-            <legend class="top-descriptor">Login</legend>
+<body class="d-flex justify-content-center " style="height: 100vh; background-color: #f1f1f1;">
+
+<div class ="text-center mt-5">
+    <img class="rounded-circle mb-4" src="../images/chat.png" width="100" height="100" />
+    
+    <form class="border p-4 rounded" action="" method="post" style="background-color: white">
+    <h4>Please sign in</h4>
+            
             <div>
-                <div>
-                    <label class="input-descriptor">Username</label>
-                    <input placeholder="Username" name="username" />
+                <div class ="mb-3">
+                    
+                    <input type="text" placeholder="Username" name="username" class="form-control"/>
                 </div>
-                <div>
-                    <label class="input-descriptor">Password</label>
-                    <input placeholder="Password" name="password" type="password"/>
+                <div class ="mb-3">
+                    
+                    <input placeholder="Password" name="password" type="password" class="form-control"/>
                 </div>
             </div>
-        </fieldset>
-        <a href="./register.php"><button class="regular-button" type="button">Register</button></a>
-        <button class="primary-action-button" type="submit" value="Login">Login</button>
+      <div class="btn-group w-100">
+        <a href="./register.php" class="btn btn-secondary text-white rounded-start w-50">Register</a>
+        <button class="btn btn-primary w-50 text-white rounded-end" type="submit" value="Login">Login</button>
+        </div>
     </form>
 </body>
 
