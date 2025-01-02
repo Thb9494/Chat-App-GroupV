@@ -1,0 +1,358 @@
+@media screen and (max-width: 900px) {
+    .regular-button,
+    .primary-action-button {
+      display: block;
+      margin: 5px auto;
+      width: 100%;
+    }
+    .input-descriptor{
+        text-align: left;
+        margin: auto;
+    }
+   .responsive-input{
+    display: flex;
+   }
+  }
+html {
+    text-align: center;
+    margin: auto;
+    max-width: 900px;
+}
+body {
+    background-color: rgb(245, 245, 245);
+}
+h1 {
+    font-size: 40px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+p {
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+a {
+    color: #318CE7; 
+    text-decoration: none;
+  }
+  
+  .remove-friend{
+    color: #D2122E; 
+  }
+
+.input-descriptor {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.primary-action-button {
+    background-color: #007FFF; 
+    border: none;
+    color: white;
+    padding: 5px 14px;
+    text-align: center;
+    font-size: 16px;
+    margin: 5px;
+    margin-left: 0px;
+    border-radius: 4px;
+  }
+  .primary-action-button:hover {background-color: darkblue}
+
+  .regular-button {
+    background-color: grey; 
+    border: none;
+    color: white;
+    padding: 5px 20px;
+    text-align: center;
+    font-size: 16px;
+    margin: 5px;
+    margin-right: 0px;
+    border-radius: 4px;
+  }
+
+  .regular-button:hover {background-color: rgb(70, 69, 69)}
+
+  .send-add-button{
+    background-color: grey; 
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 4px;
+    padding: 10px 30px;
+  }
+
+.send-add-button:hover {background-color: rgb(70, 69, 69)}
+fieldset {
+    background-color: white;
+    border-style: dotted;
+    border-color: lightgray;
+}
+label {
+    display: inline-block;
+    width: 10rem;
+    text-align: right;
+}
+input {
+    border-style: groove;
+    border-color: lightgrey;
+    border-width: 2px;
+    width: 11rem;
+}
+textarea {
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+}
+select {
+    border-style: groove;
+    border-width: 2px;
+    border-color: lightgrey;
+    width: 11.5rem;
+}
+hr {
+    border-style: dashed;
+    color: gray;
+}
+ol li {
+    text-align: left;
+}
+
+input {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    padding: 12px;
+    margin: 5px;
+}
+
+
+
+.h1left {
+    text-align: left;
+}
+
+.h2left{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: left;
+}
+
+.input-descriptor {
+    font-family: Arial, Helvetica, sans-serif;
+    height: 25px;
+    margin-right: 10px;
+}
+.top-descriptor {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+}
+.radiobuttonlayout {
+    width: 100%;
+    text-align: left;
+}
+.radiobuttons {
+    width: 15px;
+}
+.navbar {
+    text-align: left;
+}
+.profileimg {
+    width: 300px;
+    height: 300px;
+}
+.profiletextbox {
+    border: 2px;
+    padding: 5px 20px;
+    border-color: lightgray;
+    border-style: groove;
+    text-align: left;
+    margin-left: 10px;
+}
+.roundimg {
+    border-radius: 50%;
+}
+.gridcontainer {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.profileanswers {
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    text-indent: 20px;
+}
+.chatfield, .friends {
+    border: 1px solid gray;
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px 10px;
+    text-align: left;
+}
+.chatfield li, .friends li {
+    list-style-type: none;
+    padding: 7px;
+    font-size: larger;
+}
+.chatfield li div, .friends li div {
+    float: right;
+    background-color: rgb(66, 98, 244);
+    color: white;
+    padding: 3px 6px;
+
+}
+.chatfield li a, .friends li a {
+    color: inherit;
+    text-decoration-line: none;
+}
+
+.chattext {
+    display: inline;
+}
+.timestamp {
+    color: black;
+    float: right;
+
+}
+.chatinput {
+    width: 80%;
+    float: left;
+    padding: 5px 5px;
+    height: 24px;
+}
+.chatbutton {
+    float: right;
+}
+
+
+
+.chatinput a button {
+    background-color: grey; 
+    border: none;
+    color: white;
+    padding: 5px 50px;
+    text-align: center;
+    font-size: 16px;
+    margin: 5px;
+    margin-right: 0px;
+    border-radius: 4px;
+    margin-top: 0px;
+}
+
+ul li:hover{
+    background-color: rgb(209, 209, 209);
+    color: white;
+    
+}
+
+
+
+#sent-messages-container {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding: 5px;
+   
+}
+
+#message-container {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.message {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.chat {
+    margin-top: 10px;
+}
+
+#chat-form input[type="text"] {
+    width: 80%;
+    padding: 8px;
+}
+
+
+.settings-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.settings-container fieldset {
+    margin-bottom: 20px;
+}
+
+.settings-container legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.settings-container .field {
+    margin-bottom: 15px;
+}
+
+.settings-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.settings-container input,
+.settings-container select,
+.settings-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.settings-container .primary-action-button,
+.settings-container .regular-button {
+    width: auto;
+    margin: 10px 5px;
+}
+
+
+.profile-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container img {
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+}
+
+.profile-container fieldset {
+    margin-bottom: 20px;
+}
+
+.profile-container p {
+    margin-bottom: 10px;
+}
+
+.profile-container .profileanswers {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.profile-container .remove-friend {
+    color: #D2122E;
+    font-weight: bold;
+}
+
+.profile-container .remove-friend:hover {
+    text-decoration: underline;
+}
