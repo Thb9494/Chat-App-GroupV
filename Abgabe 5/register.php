@@ -74,32 +74,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="./style.css" />
     <script src="./registerJS.js" defer></script>
 </head>
-<body>
-    <img class="roundimg" src="../images/user.png" width="100" height="100" />
-    <h1>Registriere dich</h1>
-    <div>
-        <form id="registerForm" method="POST" action="" onsubmit="return validateFormFields()">
-            <fieldset>
-                <legend class="top-descriptor">Register yourself</legend>
-                <div class="labelandinput">
-                    <div>
-                        <label class="input-descriptor">Username</label>
-                        <input name="username" id="userNameField" placeholder="Benutzername" value="<?php echo htmlspecialchars($username); ?>" /><br />
-                        <div id="userNameFieldError" class="errorMessage"><?php echo $usernameError; ?></div>
+<body class="bg-light">
+<img class="roundimg" src="../images/user.png" width="100" height="100" />
 
-                        <label class="input-descriptor">Password</label>
-                        <input name="password" id="passwordField" type="password" placeholder="Passwort" /><br />
-                        <div id="passwordFieldError" class="errorMessage"><?php echo $passwordError; ?></div>
-
-                        <label class="input-descriptor">Confirm Password</label>
-                        <input name="confirmPassword" id="confirmPasswordField" type="password" placeholder="Passwort bestätigen" /><br />
-                        <div id="confirmPasswordFieldError" class="errorMessage"><?php echo $confirmPasswordError; ?></div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="text-center">
+                        <h2>Register yourself</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="" class="row g-3 needs-validation" novalidate>
+                            <div class="mb-3">
+                                <input 
+                                    type="text" 
+                                    class="form-control <?php echo !empty($usernameError) ? 'is-invalid' : (empty($username) ? '' : 'is-valid'); ?>" 
+                                    id="username" 
+                                    name="username" 
+                                    placeholder="Username"
+                                    value="<?php echo htmlspecialchars($username); ?>" 
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <input 
+                                    type="password" 
+                                    class="form-control <?php echo !empty($passwordError) ? 'is-invalid' : (empty($password) ? '' : 'is-valid'); ?>" 
+                                    id="password" 
+                                    name="password" 
+                                    placeholder="Password"
+                                    required>
+                            </div>
+                            <div class="mb-3">
+                                <input 
+                                    type="password" 
+                                    class="form-control <?php echo !empty($confirmPasswordError) ? 'is-invalid' : (empty($confirmPassword) ? '' : 'is-valid'); ?>" 
+                                    id="confirmPassword" 
+                                    name="confirmPassword"
+                                    placeholder="Confirm Password"
+                                    required>
+                            </div>
+                            <div class="btn-group">
+                                <a href="./login.php" class="btn btn-secondary">Cancel</a>
+                                <button type="submit" class="btn btn-primary">Create Account</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </fieldset>
-            <a href="./login.php"><button class="regular-button" type="button">Cancel</button></a>
-            <button class="primary-action-button" id="createAccountButton" type="submit">Create Account</button>
-        </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>
