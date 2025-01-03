@@ -74,47 +74,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="./style.css" />
     <script src="./registerJS.js" defer></script>
 </head>
-<body class="bg-light">
-<img class="roundimg" src="../images/user.png" width="100" height="100" />
+<body>
+<img class="roundimg mt-2" src="../images/user.png" width="100" height="100" />
 
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="text-center">
-                        <h2>Register yourself</h2>
+                    <div class="text-center mt-5">
+                        <h3 class="mb-0">Register yourself</h3>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="" class="row g-3 needs-validation" novalidate>
-                            <div class="mb-3">
+                            <div class="mb-0 col-9 mx-auto">
                                 <input 
                                     type="text" 
-                                    class="form-control <?php echo !empty($usernameError) ? 'is-invalid' : (empty($username) ? '' : 'is-valid'); ?>" 
+                                    class="form-control py-3 <?php echo !empty($usernameError) ? 'is-invalid' : (empty($username) ? '' : 'is-valid'); ?>" 
                                     id="username" 
                                     name="username" 
                                     placeholder="Username"
                                     value="<?php echo htmlspecialchars($username); ?>" 
                                     required>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-0 col-9 mx-auto">
                                 <input 
                                     type="password" 
-                                    class="form-control <?php echo !empty($passwordError) ? 'is-invalid' : (empty($password) ? '' : 'is-valid'); ?>" 
+                                    class="form-control py-3 <?php echo !empty($passwordError) ? 'is-invalid' : (empty($password) ? '' : 'is-valid'); ?>" 
                                     id="password" 
                                     name="password" 
                                     placeholder="Password"
                                     required>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-0 col-9 mx-auto">
                                 <input 
                                     type="password" 
-                                    class="form-control <?php echo !empty($confirmPasswordError) ? 'is-invalid' : (empty($confirmPassword) ? '' : 'is-valid'); ?>" 
+                                    class="form-control py-3 <?php echo !empty($confirmPasswordError) ? 'is-invalid' : (empty($confirmPassword) ? '' : 'is-valid'); ?>" 
                                     id="confirmPassword" 
                                     name="confirmPassword"
                                     placeholder="Confirm Password"
                                     required>
                             </div>
-                            <div class="btn-group">
+                            <div class="btn-group mb-5 col-9 mx-auto">
                                 <a href="./login.php" class="btn btn-secondary">Cancel</a>
                                 <button type="submit" class="btn btn-primary">Create Account</button>
                             </div>
