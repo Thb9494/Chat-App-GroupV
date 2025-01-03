@@ -37,7 +37,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'remove_friend') {
 }
 
 if (empty($chatPartner)) {
-    $message = "Wähle einen Freund aus, um zu chatten.";
+    header("Location: friends.php");
 } else {
     $message = "Chat with $chatPartner";
 }
