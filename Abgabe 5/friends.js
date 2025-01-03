@@ -19,9 +19,11 @@ function createFriendlist(friends) {
   friends.forEach(friend => {
     if (friend.status === "accepted") { // Nur akzeptierte Freunde anzeigen
       const li = document.createElement("li");
+      li.classList.add("list-group-item")
       const a = document.createElement("a");
       a.setAttribute("href", "chat.php?friend=" + friend.username);
       a.textContent = friend.username;
+      a.classList.add("text-dark", "text-decoration-none");
       li.appendChild(a);
       friendlist.appendChild(li);
     }
@@ -34,12 +36,17 @@ function createRequestList(friends) {
 
   friends.forEach(friend => {
     if (friend.status === "requested") { // Nur angefragte Freunde anzeigen
+      var modal = new bootstrap.Modal(document.getElementById("requestModal"));
       const li = document.createElement("li");
+      li.classList.add("list-group-item");
       li.textContent = friend.username;
+      li.addEventListener("click", () => {
+        const modalTitle = document.querySelector("#requestModal .modal-title b");
+        modalTitle.textContent = friend.username; // Den Namen im Modal anzeigen
+        modal.show(); // Modal anzeigen
+        ;});
 
-      const acceptButton = document.createElement("button");
-      acceptButton.textContent = "Accept";
-      acceptButton.classList.add("regular-button");
+      const acceptButton = document.getElementById("acceptButton");
       acceptButton.addEventListener("click", () => {
         const params = new URLSearchParams({
             username: friend.username,
@@ -48,9 +55,8 @@ function createRequestList(friends) {
         window.location.href = window.location.pathname + "?" + params.toString();
     });
 
-      const rejectButton = document.createElement("button");
-      rejectButton.textContent = "Reject";
-      rejectButton.classList.add("regular-button");
+      const rejectButton = document.getElementById("rejectButton");
+      
       rejectButton.addEventListener("click", () => {
         const params = new URLSearchParams({
             username: friend.username,
@@ -59,8 +65,7 @@ function createRequestList(friends) {
         window.location.href = window.location.pathname + "?" + params.toString();
     });
 
-      li.appendChild(acceptButton);
-      li.appendChild(rejectButton);
+      
       requestlist.appendChild(li);
     }
   });
