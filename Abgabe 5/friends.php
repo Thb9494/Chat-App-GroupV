@@ -89,10 +89,10 @@ $filteredUser = array_diff($users, $friendnames, [$loggedInUserName]);
   </div>
 </div>
 
-<div class="container my-4 w-120">
+<div class="container my-4 px-0">
   <form action="" method="GET">
     <!-- input-group Container für das Input-Feld und den Button -->
-    <div class="input-group w-100">
+    <div class="input-group">
       <!-- Das Input-Feld für die Freundesanfrage -->
       <input type="text" placeholder="Add Friend to List" name="friendRequestName" id="friend-request-name" list="friend-selector" class="form-control">
       
