@@ -1,170 +1,136 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const messageForm = document.getElementById('message-form');
-    const messageInput = document.getElementById('message-input');
-    const sentMessagesContainer = document.getElementById('sent-messages-container');
+// Global configuration - store in main.js or at top of chat.js
+const backendUrl = "https://online-lectures-cs.thi.de/chat/ac6da607-6c49-49b2-a4ec-4ae662913054";
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyNDgwOTc5fQ.ipu8rFx07hVcOEe95OVsXx75L8mqjMuXxfk2rfDbS5k";
 
-    // Entfernen der vorherigen Event-Listener, um Mehrfachsendungen zu verhindern
-    messageForm.removeEventListener('submit', handleFormSubmit);
-    messageForm.addEventListener('submit', handleFormSubmit);
-
-    function handleFormSubmit(event) {
-        event.preventDefault();
-
-        const message = messageInput.value.trim();
-        if (message) {
-            sendMessage(message);
-            messageInput.value = '';
-        } else {
-            alert("Bitte gib eine Nachricht ein.");
-        }
-    }
-
-    function displaySentMessage(message) {
-        if (!sentMessagesContainer) return;
-    
-        // Überprüfen, ob die Nachricht bereits angezeigt wurde
-        const messageKey = `${currentUser}:${message}:${new Date().toISOString()}`;
-        if (displayedMessages.has(messageKey)) return;
-        displayedMessages.add(messageKey);
-    
-        // Nachricht erstellen und anzeigen
-        const now = new Date();
-        const hours = now.getHours().toString().padStart(2, '0');
-        const minutes = now.getMinutes().toString().padStart(2, '0');
-        const seconds = now.getSeconds().toString().padStart(2, '0');
-        const timeString = `${hours}:${minutes}:${seconds}`;
-    
-        const messageElement = document.createElement('div');
-        messageElement.className = 'sent-message';
-    
-        const messageText = document.createElement('span');
-        messageText.className = 'chattext';
-        messageText.textContent = `${currentUser}: ${message}`;
-    
-        const messageTime = document.createElement('span');
-        messageTime.className = 'chattext timestamp';
-        messageTime.textContent = timeString;
-    
-        messageElement.appendChild(messageText);
-        messageElement.appendChild(messageTime);
-    
-        sentMessagesContainer.appendChild(messageElement);
-        sentMessagesContainer.scrollTop = sentMessagesContainer.scrollHeight;
-    }
-    
-    function sendMessage(message) {
-        const chatPartner = getChatpartner();
-    
-        const formData = new URLSearchParams();
-        formData.append("msg", message);
-        formData.append("to", chatPartner);
-    
-        fetch("chat.php", {
-            method: "POST",
-            body: formData,
-        })
-            .then(response => {
-                if (response.ok) {
-                    displaySentMessage(message);
-                } else {
-                    throw new Error(`Fehler beim Senden der Nachricht: ${response.status}`);
-                }
-            })
-            .catch(error => {
-                console.error("Fehler beim Senden der Nachricht:", error);
-            });
-    }
-    
-    function getChatpartner() {
-        const url = new URL(window.location.href);
-        const friend = url.searchParams.get("friend");
-        if (!friend) {
-            window.location.href = "friends.php";
-        }
-        return friend;
-    }
-
-    function updateChatHeader() {
-        const chatPartner = getChatpartner();
-        const headerElement = document.querySelector("h1");
-        if (headerElement && chatPartner) {
-            headerElement.textContent = `Chat with ${chatPartner}`;
-        }
-    }
-
-    function loadMessages() {
-        const chatPartner = getChatpartner();
-    
-        fetch(`ajax_load_messages.php?to=${encodeURIComponent(chatPartner)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Fehler beim Laden der Nachrichten: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(messages => {
-                displayMessages(messages);
-            })
-            .catch(error => {
-                console.error("Fehler beim Laden der Nachrichten:", error);
-            });
-    }
-    
-    const displayedMessages = new Set();
-
-function displayMessages(messages) {
-    const messageContainer = document.getElementById("sent-messages-container");
-    if (!messageContainer) return;
-
-    messages.forEach(message => {
-
-        const messageKey = `${message.from}:${message.msg}:${message.time}`;
-
-        
-        if (!displayedMessages.has(messageKey)) {
-            displayedMessages.add(messageKey); 
-
-            const messageElement = document.createElement("div");
-            messageElement.className = "message";
-
-            const fromElement = document.createElement("span");
-            fromElement.className = "from";
-            fromElement.textContent = `${message.from}:`;
-
-            const msgElement = document.createElement("span");
-            msgElement.className = "msg";
-            msgElement.textContent = `"${message.msg}"`;
-
-            const timeElement = document.createElement("span");
-            timeElement.className = "time";
-            timeElement.textContent = ` (${message.time})`;
-
-            // Elemente zusammenfügen
-            messageElement.appendChild(fromElement);
-            messageElement.appendChild(msgElement);
-            messageElement.appendChild(timeElement);
-
-            // Nachricht hinzufügen
-            messageContainer.appendChild(messageElement);
-        }
-    });
-
-    // Automatisches Scrollen zum neuesten Eintrag
-    messageContainer.scrollTop = messageContainer.scrollHeight;
+// Get chatpartner from URL using all possible parameter names
+function getChatpartner() {
+    const url = new URL(window.location.href);
+    // Try different possible parameter names
+    const friend = url.searchParams.get("friend")
+    console.log("Chat partner:", friend); // Debug output
+    return friend;
 }
 
-    // Initialisierung der Chatfunktionalität
-    function initializeChat() {
-        updateChatHeader(); // Header aktualisieren
-        loadMessages(); // Nachrichten laden
+// Update chat header with friend's name
+function updateChatHeader() {
+    const friend = getChatpartner();
+    const headerElement = document.querySelector("h1");
+    if (headerElement && friend) {
+        headerElement.textContent = `Chat with ${friend}`;
+    }
+}
 
-        // Sende-Event mit dem Formular verbinden
-        const form = document.getElementById("message-form");
-        if (form) {
-            form.addEventListener("submit", handleFormSubmit);
-        }
+// Load and display messages
+function loadMessages() {
+    const friend = getChatpartner();
+    if (!friend) {
+        console.error("No friend specified");
+        return;
     }
 
-    // Chat initialisieren, wenn die DOM geladen wurde
-    document.addEventListener("DOMContentLoaded", initializeChat);
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+                const messages = JSON.parse(xmlhttp.responseText);
+                displayMessages(messages);
+            } else {
+                console.error("Error loading messages:", xmlhttp.status);
+            }
+        }
+    };
+
+    xmlhttp.open("GET", `${backendUrl}/message/${friend}`, true);
+    xmlhttp.setRequestHeader('Authorization', 'Bearer ' + token);
+    xmlhttp.send();
+}
+window.sendMessage = sendMessage;
+
+// Display messages in the chat
+function displayMessages(messages) {
+    // Find the message container
+    const messageContainer = document.getElementById("message-container");
+    if (!messageContainer) return;
+    
+    // Clear existing messages
+    messageContainer.innerHTML = "";
+    
+    // Add all messages
+    messages.forEach(message => {
+        const messageElement = document.createElement("div");
+        messageElement.className = "chat";
+        messageElement.textContent = `${message.from}: "${message.msg}"`;
+        messageContainer.appendChild(messageElement);
+    });
+}
+
+
+// Send a new message
+function sendMessage(event) {
+    if (event) {
+        event.preventDefault();
+    }
+    
+    const friend = getChatpartner();
+    const inputField = document.querySelector("input[type='text']");
+    if (!friend) {
+        console.error("No friend specified");
+        return;
+    }
+    if (!inputField || !inputField.value.trim()) {
+        console.error("No message to send");
+        return;
+    }
+
+    // Correct format according to documentation
+    const data = {
+        message: inputField.value.trim(),
+        to: friend
+    };
+
+    console.log("Sending message to:", friend);
+    console.log("Message data:", data);
+
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 204) {
+                // Message sent successfully
+                inputField.value = ""; // Clear input field
+                loadMessages(); // Reload messages
+            } else {
+                console.error("Error sending message:", xmlhttp.status);
+                console.error("Response:", xmlhttp.responseText);
+            }
+        }
+    };
+
+    // Correct endpoint - just /message without the recipient
+    xmlhttp.open("POST", `${backendUrl}/message`, true);
+    xmlhttp.setRequestHeader('Authorization', 'Bearer ' + token);
+    xmlhttp.setRequestHeader('Content-Type', 'application/json');
+    xmlhttp.send(JSON.stringify(data));
+}
+
+// Initialize chat functionality
+function initializeChat() {
+    // Update header with friend's name
+    updateChatHeader();
+    
+    // Load initial messages
+    loadMessages();
+    
+    // Set up periodic message loading
+    window.setInterval(loadMessages, 1000);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const sendButton = document.getElementById('send-button');
+    if (sendButton) {
+        sendButton.addEventListener('click', sendMessage);
+    }
 });
+
+
+// Start everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeChat);
