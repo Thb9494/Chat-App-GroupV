@@ -22,7 +22,6 @@ function updateChatHeader() {
 
 // Load and display messages
 function loadMessages() {
-    console.log("loadMessages function called");  // Debugging-Log
     const friend = getChatpartner();
     if (!friend) {
         console.error("No friend specified");
