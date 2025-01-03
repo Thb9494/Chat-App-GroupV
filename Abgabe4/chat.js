@@ -59,7 +59,7 @@ function displayMessages(messages) {
     messages.forEach(message => {
         const messageElement = document.createElement("div");
         messageElement.className = "chat";
-        messageElement.textContent = `${message.from}: "${message.msg}"`;
+        messageElement.textContent = `${message.from}: ${message.msg}`;
         messageContainer.appendChild(messageElement);
     });
 }
