@@ -22,9 +22,9 @@ responsive.css: Vincent
 CAVE: bitte den link "remove friend" der Klasse .danger-links zugehörig machen
 
 Aufgabe 3:
-Aufgabe a: Tomke
-Aufgabe b: Theresa
-Aufgabe c: Vincent
+Aufgabe a: Tomke (Registrieren)
+Aufgabe b: Theresa (Freunde)
+Aufgabe c: Vincent (Chat)
 
 Token sind in main.js hinterlegt
 
