@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="chat">
             <form id="message-form" method="POST" >
                 <input type="text" class="chatinput" id="message-input" placeholder="New Message" required>
-                <button type="submit" class="send-add-button" id="send-button" >Send</button>
+                <input type="button" value="Send" class="send-add-button" id="send-button" onclick="sendMessage(event)"></input>
             </form>
         </div>
     <?php endif; ?>

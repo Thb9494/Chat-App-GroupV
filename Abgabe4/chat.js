@@ -46,10 +46,10 @@ function loadMessages() {
     xmlhttp.setRequestHeader('Authorization', 'Bearer ' + token);
     xmlhttp.send();
 }
-window.sendMessage = sendMessage;
 
 // Display messages in the chat
 function displayMessages(messages) {
+
     // Find the message container
     const messageContainer = document.getElementById("message-container");
     if (!messageContainer) return;
@@ -61,7 +61,7 @@ function displayMessages(messages) {
     messages.forEach(message => {
         const messageElement = document.createElement("div");
         messageElement.className = "chat";
-        messageElement.textContent = `${message.from}: ${message.msg}`;
+        messageElement.textContent = `${message.from} "${message.msg}"`;
         messageContainer.appendChild(messageElement);
     });
 }
@@ -126,24 +126,17 @@ function initializeChat() {
     window.setInterval(loadMessages, 1000);
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const sendButton = document.getElementById('send-button');
-    if (sendButton) {
-        sendButton.addEventListener('click', sendMessage);
-    }
-});
-
-
 // Start everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', initializeChat);
 
 function getCookieByName(name) {
-    const cookies = document.cookie.split(";");
-    for (let cookie of cookies) {
-    cookie = cookie.trim();
-if (cookie.startsWith(name + "=")) {
-    return cookie.substring(name.length + 1);
-}
-}
-    return null;
-}
+        const cookies = document.cookie.split(";");
+        for (let cookie of cookies) {
+        cookie = cookie.trim();
+    if (cookie.startsWith(name + "=")) {
+        return cookie.substring(name.length + 1);
+    }
+    }
+        return null;
+    }
+    
