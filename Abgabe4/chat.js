@@ -1,6 +1,8 @@
 // Global configuration - store in main.js or at top of chat.js
-const backendUrl = "https://online-lectures-cs.thi.de/chat/ac6da607-6c49-49b2-a4ec-4ae662913054";
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyNDgwOTc5fQ.ipu8rFx07hVcOEe95OVsXx75L8mqjMuXxfk2rfDbS5k";
+const backendUrl = "https://online-lectures-cs.thi.de/chat/c49d4fa0-6113-4b89-ac33-ebda6d4a5e96";
+//const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiVG9tIiwiaWF0IjoxNzMyNDgwOTc5fQ.ipu8rFx07hVcOEe95OVsXx75L8mqjMuXxfk2rfDbS5k";
+var token = getCookieByName("token");
+console.log("Token:", token);
 
 // Get chatpartner from URL using all possible parameter names
 function getChatpartner() {
@@ -134,3 +136,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Start everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', initializeChat);
+
+function getCookieByName(name) {
+    const cookies = document.cookie.split(";");
+    for (let cookie of cookies) {
+    cookie = cookie.trim();
+if (cookie.startsWith(name + "=")) {
+    return cookie.substring(name.length + 1);
+}
+}
+    return null;
+}

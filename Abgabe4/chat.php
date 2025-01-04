@@ -10,6 +10,7 @@ if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
 $service = new Utils\BackendService("https://online-lectures-cs.thi.de/chat/", "c49d4fa0-6113-4b89-ac33-ebda6d4a5e96");
 
 $user = $_SESSION['user']; // Angemeldeten Nutzer aus der Session holen
+$token = $_SESSION['chat_token'];
 $chatPartner = htmlspecialchars($_GET['friend'] ?? ''); // Freund aus der URL holen
 
 // Prüfen, ob ein Freund entfernt werden soll

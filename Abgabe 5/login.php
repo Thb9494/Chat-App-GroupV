@@ -15,6 +15,8 @@ $service = new Utils\BackendService(CHAT_SERVER_URL, CHAT_SERVER_ID);
 
 if ($service->login($username, $password)) {
     $_SESSION["user"] = $username;
+    echo $_SESSION["chat_token"];
+    setcookie("token",$_SESSION["chat_token"],time() + (86400 * 30), "/");
     header("Location: friends.php");
     exit(); // Sicherstellen, dass kein weiterer Code ausgeführt wird
 }

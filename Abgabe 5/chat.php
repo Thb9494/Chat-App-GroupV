@@ -10,6 +10,7 @@ if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
 $service = new Utils\BackendService("https://online-lectures-cs.thi.de/chat/", "c49d4fa0-6113-4b89-ac33-ebda6d4a5e96");
 
 $user = $_SESSION['user']; // Angemeldeten Nutzer aus der Session holen
+$token= $_SESSION['chat_token'];
 $chatPartner = htmlspecialchars($_GET['friend'] ?? ''); // Freund aus der URL holen
 
 // Prüfen, ob ein Freund entfernt werden soll
@@ -110,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <!-- Neue Nachricht -->
             <form id="message-form" method="POST" class="input-group mt-3">
                 <input type="text" class="form-control" id="message-input" placeholder="New Message" required>
-                <button type="submit" class="btn btn-primary" id="send-button">Send</button>
+                <input type="button" value="Send" class="btn btn-primary" id="send-button" onclick="sendMessage(event)"></input>
             </form>
 
             <!-- Freund entfernen Modal -->
