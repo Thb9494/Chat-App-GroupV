@@ -49,21 +49,46 @@ function loadMessages() {
 
 // Display messages in the chat
 function displayMessages(messages) {
-
-    // Find the message container
     const messageContainer = document.getElementById("message-container");
     if (!messageContainer) return;
+
+    // Get chat layout preference from the data attribute
+    const layoutPreference = messageContainer.getAttribute('data-chat-layout');
     
-    // Clear existing messages
     messageContainer.innerHTML = "";
-    
-    // Add all messages
+
     messages.forEach(message => {
         const messageElement = document.createElement("div");
-        messageElement.className = "chat";
-        messageElement.textContent = `${message.from} "${message.msg}"`;
+        messageElement.className = "chat-message card mb-3";
+        
+        if (layoutPreference === 'oneLine') {
+            // One line layout
+            messageElement.innerHTML = `
+                <div class="card-body">
+                    <strong class="me-2">${message.from}:</strong>
+                    <span>${message.msg}</span>
+                </div>
+            `;
+        } else {
+            // Two lines layout
+            messageElement.innerHTML = `
+                <div class="card-body">
+                    <div class="fw-bold mb-1">${message.from}</div>
+                    <div>${message.msg}</div>
+                </div>
+            `;
+        }
+        
+        // Add different styling for own messages
+        if (message.from === currentUser) {
+            messageElement.classList.add('bg-light');
+        }
+        
         messageContainer.appendChild(messageElement);
     });
+    
+    // Scroll to bottom
+    messageContainer.scrollTop = messageContainer.scrollHeight;
 }
 
 

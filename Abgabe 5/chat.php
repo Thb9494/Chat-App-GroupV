@@ -67,6 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
 }
 
+$currentUser = $service->loadUser($_SESSION['user']);
+$chatLayout = $currentUser->getChatLayout();
+
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -103,8 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <!-- Chat Nachrichten -->
             <div class="chatfield bg-light p-3 rounded mt-3">
-                <div class="chattext" id="sent-messages-container"></div>
-                <div class="chattext" id="message-container"></div>
+                <div class="chattext" id="message-container" data-chat-layout="<?php echo htmlspecialchars($chatLayout); ?>"></div>
             </div>
 
 
